@@ -10,10 +10,10 @@ using namespace std;
 Swiat::Swiat()
 {
     this->setRozmiar();
-    this->setZajete();
+    this->createZajete();
 }
 
-void Swiat::setZajete()
+void Swiat::createZajete()
 {
     this->polaPlanszy = new Organizm**[this->rozmiarY];
     for (int i = 0; i < this->rozmiarY; ++i)
@@ -28,32 +28,31 @@ void Swiat::setZajete()
 
 void Swiat::zniszczOrganizm(Organizm* organizm)
 {
-	delete organizm;
+    delete organizm;
 }
 
 void Swiat::usunOrganizmZPlanszy(Organizm* organizm)
 {
-	Pozycja* pozycjaOrganizmu = organizm->getPozycja();
-	this->zniszczOrganizm(organizm);
+    Pozycja* pozycjaOrganizmu = organizm->getPozycja();
     this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = nullptr;
-	
+    
 }
 
 
 void Swiat::dodajOrganizmNaPlansze(Organizm* organizm)
 {
-	Pozycja* pozycjaOrganizmu = organizm->getPozycja();
+    Pozycja* pozycjaOrganizmu = organizm->getPozycja();
     this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = organizm;
 }
 
 int Swiat::sprawdzCzyPoleOkupowane(Pozycja pozycja)
 {
-	int czyZajete = false;
-	if ( this->getZajete()[pozycja.y][pozycja.x])
-	{
-		czyZajete = true;
-	}
-	return czyZajete;
+    int czyZajete = false;
+    if ( this->getZajete()[pozycja.y][pozycja.x] )
+    {
+        czyZajete = true;
+    }
+    return czyZajete;
 
 }
 
@@ -63,7 +62,7 @@ Organizm*** Swiat::getZajete()
     return this->polaPlanszy;
 }
 
-void Swiat::setRejestr()
+void Swiat::clearRejestr()
 {
     for ( int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]) ; ++i)
     {
@@ -71,7 +70,7 @@ void Swiat::setRejestr()
     }
 }
 
-void Swiat::dodajRejestr(string rejestr)
+void Swiat::dodajElementRejestru(string rejestr)
 {
     for (int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1; ++i)
     {
@@ -127,7 +126,7 @@ void Swiat::rysujLegende()
     
 }
 
-void Swiat::rysujRejestrWalk()
+void Swiat::rysujRejestr()
 {
     for (int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]); ++i)
     {
@@ -140,7 +139,7 @@ void Swiat::rysujSwiat()
     // rysuj swiat with legend and combat log
     //rysujPlansze();
     //rysujLegende();
-    //rysujRejestrWalk
+    //rysujRejestr
 }
 
 void Swiat::wykonajRunde()

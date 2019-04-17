@@ -3,13 +3,14 @@
 #include <cstdlib>
 #include "Organizm.h"
 
-class Zwierze: public Organizm{
+class Zwierze: protected Organizm{
 protected:
 	int krok;
 public:
 	Zwierze(Swiat* swiat, Pozycja pozycja, int krok);
 	void usunOrganizmZPlanszy();
 	void dodajOrganizmNaPlansze();
+	void ustawNowaPozycje(Pozycja pozycja);
 	void akcja() override;
 	int kolizja() override;
 	void rysuj() override;

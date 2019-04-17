@@ -16,28 +16,22 @@ protected:
 	int rozmiarX, rozmiarY;
 	string rejestr[5];
 	Organizm*** polaPlanszy;
-	//TODO tablica polaPlanszy bool -> Organizm
-	/*
-	 * Wypierdoliæ booleany i zrobiæ z tego tablicê Organizmów
-	 * CzyKolizja zwraca null jeœli puste, Organizm jeœli zajête
-	 * TRAWA MA ZAWSZE ID 0, WIEC CZYKOLIZJA SPRAWDZA CZY ORGANIZM MA ID WIEKSZE OD 0, JEŒLI NIE, TO JEST TO TRAWA I JEST PUSTE
-	 */
 public:
 	Swiat();
-	void setZajete();
+	void createZajete();
 	void zniszczOrganizm(Organizm* organizm);
 	void usunOrganizmZPlanszy(Organizm* organizm);
 	Organizm*** getZajete();
 	void dodajOrganizmNaPlansze(Organizm* organizm);
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
-	void setRejestr();
-	void dodajRejestr(string rejestr);
+	void clearRejestr();
+	void dodajElementRejestru(string rejestr);
 	int getRozmiarX();
 	int getRozmiarY();
 	void rysujNaglowek();
 	void rysujPlansze();
 	void rysujLegende();
-	void rysujRejestrWalk();
+	void rysujRejestr();
 	void rysujSwiat();
 	int dodajOrganizm(Organizm* organizm);
 	int sortujListeInicjatywy();

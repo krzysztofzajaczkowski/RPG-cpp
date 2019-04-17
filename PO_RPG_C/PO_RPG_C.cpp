@@ -23,41 +23,41 @@ void gotoxy(int x,int y)
 
 int main()
 {
-	Swiat swiat;
-	system("cls");
-	swiat.rysujPlansze();
-	for (int i = 0; i < 10; i++)
-	{
-		gotoxy(i,i);
-		_putch('d');
-	}
-	gotoxy(25,5);
-	cout << "tescik" << endl;
-	/*
-	 *system("cls");
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("Hehe, zartowalem");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("Huehuehuehuehe");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("abc");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("abecadlo");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("duuuu");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("na koniec eb");
-	cout << endl;
-	swiat.rysujRejestrWalk();
+    Swiat swiat;
+    system("cls");
+    swiat.rysujPlansze();
+    for (int i = 0; i < 10; i++)
+    {
+        gotoxy(i,i);
+        _putch('d');
+    }
+    gotoxy(25,5);
+    cout << "tescik" << endl;
+    /*
+     *system("cls");
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("Hehe, zartowalem");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("Huehuehuehuehe");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("abc");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("abecadlo");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("duuuu");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajElementRejestru("na koniec eb");
+    cout << endl;
+    swiat.rysujRejestr();
 
-	 *
-	 */
-	
+     *
+     */
+    
 
     
 }

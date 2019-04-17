@@ -22,30 +22,16 @@ void Zwierze::dodajOrganizmNaPlansze()
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
+void Zwierze::ustawNowaPozycje(Pozycja pozycja)
+{
+	*this->pozycja = pozycja;
+}
+
 void Zwierze::wykonajRuch(int kierunek)
 {
 	this->usunOrganizmZPlanszy();
-	Pozycja* pozycja = this->getPozycja();
-	int x = pozycja->x;
-	int y = pozycja->y;
-	if ( kierunek == 0 )
-	{
-		--y;
-	}
-	if ( kierunek == 1 )
-	{
-		++x;	
-	}
-	if ( kierunek == 2 )
-	{
-		++y;
-	}
-	if ( kierunek == 3)
-	{
-		--x;
-	}
-	this->getPozycja()->x = x;
-	this->getPozycja()->y = y;
+	Pozycja pozycja = this->computeNowaPozycja(kierunek);
+	this->ustawNowaPozycje(pozycja);
 	this->dodajOrganizmNaPlansze();
 }
 
@@ -58,6 +44,7 @@ void Zwierze::akcja()
 		if ( this->czyKolizja(kierunek) )
 		{
 			this->kolizja();
+			//TODO collision for zwierze
 		}
 		/*
 		 *	Jeœli zajête:
@@ -77,6 +64,9 @@ void Zwierze::akcja()
 
 int Zwierze::kolizja()
 {
+	/*
+	 * CzyKolizja returns null if empty, Organizm if occupied
+	 */
 	/*
 	 * if opponent and defender are the same type:
 	 *    perform multiplication

@@ -18,8 +18,8 @@ void Organizm::setElementListyInicjatywy(int numerElementu)
 
 void Organizm::gin()
 {
-	//TODO wyjebac organizm z listy
-	//TODO wyjebac organizm z planszy
+	//TODO usunac organizm z listy
+	//TODO usunac organizm z planszy
 	this->getSwiat()->usunOrganizmZPlanszy(this);
 	delete this;
 }
@@ -40,24 +40,50 @@ int Organizm::losujKierunek()
 	return rand()%4;
 }
 
+int Organizm::getRozmiarSwiataX()
+{
+	return this->getSwiat()->getRozmiarX();
+}
+
+int Organizm::getRozmiarSwiataY()
+{
+	return this->getSwiat()->getRozmiarY();
+}
+
 Pozycja Organizm::computeNowaPozycja(int kierunek)
 {
 	Pozycja pozycja = *this->getPozycja();
 	if (kierunek == 0)
 	{
-		pozycja.y -= 1;
+		pozycja.y -= this->krok;
+		if ( pozycja.y < 0 )
+		{
+			pozycja.y = 0;
+		}
 	}
 	if ( kierunek == 1 )
 	{
-		pozycja.x += 1;
+		pozycja.x += this->krok;
+		if ( pozycja.x > this->getRozmiarSwiataX() - 1 )
+		{
+			pozycja.x = this->getRozmiarSwiataX() - 1;
+		}
 	}
 	if ( kierunek == 2 )
 	{
 		pozycja.y += 1;
+		if ( pozycja.y > this->getRozmiarSwiataY() - 1 )
+		{
+			pozycja.y = this->getRozmiarSwiataY() - 1;
+		}
 	}
 	if ( kierunek == 3 )
 	{
 		pozycja.x -= 1;
+		if ( pozycja.x < 0 )
+		{
+			pozycja.x = 0;
+		}
 	}
 	return pozycja;
 }
@@ -74,28 +100,28 @@ bool Organizm::czyMoznaWykonacRuch(int kierunek)
 	bool czyMoznaWykonacRuch = 1;
 	if ( kierunek == 0 )
 	{
-		if (this->getPozycja()->y - 1 < 0 )
+		if (this->getPozycja()->y < 1 )
 		{
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 1 )
 	{
-		if (this->getPozycja()->x + 1 > this->getSwiat()->getRozmiarX() - 1)
+		if (this->getPozycja()->x > this->getSwiat()->getRozmiarX() - 2)
 		{	
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 2 )
 	{
-		if (this->getPozycja()->y + 1 > this->getSwiat()->getRozmiarY() - 1)
+		if (this->getPozycja()->y > this->getSwiat()->getRozmiarY() - 2)
 		{	
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 3 )
 	{
-		if (this->getPozycja()->x - 1 < 0)
+		if (this->getPozycja()->x < 1)
 		{
 			czyMoznaWykonacRuch = 0;
 		}
