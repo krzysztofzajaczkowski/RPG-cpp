@@ -10,6 +10,9 @@
 #include "Roslina.h"
 #include "Zwierze.h"
 #include "Trawa.h"
+#include "Guarana.h"
+#include "Mlecz.h"
+#include "WilczeJagody.h"
 
 using namespace std;
 
@@ -31,30 +34,36 @@ int main()
     system("cls");
     swiat->rysujPlansze();
 
-	
-	Pozycja* pozycja = new Pozycja(1,1);
-	Trawa trawa(swiat, *pozycja);
-	trawa.rysuj();
+    
+    Pozycja* pozycja = new Pozycja(1,1);
+    Trawa trawa(swiat, *pozycja);
+    pozycja->x = pozycja->y = 2;
+    Guarana guarana(swiat, *pozycja);
+    pozycja->x = pozycja->y = 3;
+    Mlecz mlecz(swiat, *pozycja);
+    pozycja->x = pozycja->y = 4;
+    WilczeJagody wilczeJagody(swiat, *pozycja);
+    swiat->rysujSwiat();
 
     /*
      *system("cls");
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Hehe, zartowalem");
+    swiat.dodajKomunikatWRejestrze("Komunikat #1");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Huehuehuehuehe");
+    swiat.dodajKomunikatWRejestrze("Komunikat #2");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("abc");
+    swiat.dodajKomunikatWRejestrze("Komunikat #3");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("abecadlo");
+    swiat.dodajKomunikatWRejestrze("Komunikat #4");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("duuuu");
+    swiat.dodajKomunikatWRejestrze("Komunikat #5");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("na koniec eb");
+    swiat.dodajKomunikatWRejestrze("Komunikat #6");
     cout << endl;
     swiat.rysujRejestr();
 

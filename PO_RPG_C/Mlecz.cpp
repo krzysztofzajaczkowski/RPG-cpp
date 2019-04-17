@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "Roslina.h"
-#include "Organizm.h"
 #include "Swiat.h"
 #include "Mlecz.h"
 
@@ -22,7 +21,7 @@ void Mlecz::akcja()
 {
 	for (int i = 0; i < 3; ++i)
 	{
-		Organizm::akcja();
+		Roslina::akcja();
 	}
 }
 

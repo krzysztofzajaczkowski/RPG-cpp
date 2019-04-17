@@ -33,6 +33,15 @@
     <ClCompile Include="Trawa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mlecz.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Guarana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WilczeJagody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Swiat.h">
@@ -48,6 +57,15 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Trawa.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mlecz.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Guarana.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WilczeJagody.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

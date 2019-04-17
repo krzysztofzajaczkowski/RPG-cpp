@@ -163,6 +163,18 @@ void Swiat::rysujRejestr()
 
 void Swiat::rysujSwiat()
 {
+	/*
+	 * for (int i = 0; i < this->getRozmiarY(); ++i)
+	{
+		for (int j = 0; j < this->getRozmiarX(); ++j)
+		{
+			if (this->getZajete()[i][j] != nullptr)
+			{
+				this->getZajete()[i][j]->rysuj();
+			}
+		}
+	}
+	 */
     // rysuj swiat with legend and combat log
     //rysujPlansze();
     //rysujLegende();
@@ -180,6 +192,7 @@ void Swiat::wykonajRunde()
 
 int Swiat::dodajOrganizmDoSwiata(Organizm *organizm)
 {
+	this->dodajOrganizmNaPlansze(organizm);
     /*
      * Append organizm to listaInicjatywy and polaPlanszy
      */
