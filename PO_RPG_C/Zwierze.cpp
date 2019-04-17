@@ -28,12 +28,16 @@ void Zwierze::ustawNowaPozycje(Pozycja pozycja)
 	*this->pozycja = pozycja;
 }
 
-void Zwierze::wykonajRuch(int kierunek)
+void Zwierze::wykonajRuch(Pozycja pozycja)
 {
 	this->usunOrganizmZPlanszy();
-	Pozycja pozycja = this->computeNowaPozycja(kierunek);
 	this->ustawNowaPozycje(pozycja);
 	this->dodajOrganizmNaPlansze();
+}
+
+Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
+{
+	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
 }
 
 
@@ -44,37 +48,24 @@ void Zwierze::akcja()
 	Pozycja* pozycja = this->getPozycja();
 	if ( this->czyMoznaWykonacRuch(kierunek) )
 	{
-		if ( this->czyKolizja(kierunek) )
+		Pozycja nowaPozycja = this->computeNowaPozycja(kierunek);
+		if ( this->czyKolizja(nowaPozycja) )
 		{
-			this->kolizja();
-			//TODO collision for zwierze
+			this->kolizja(nowaPozycja);
 		}
-		/*
-		 *	Jeœli zajête:
-		 *		Kolizja
-		 *	Jeœli wolne:
-		 *		this->wykonajRuch(kierunek);
-		 */
-		this->getSwiat()->usunOrganizmZPlanszy(this);
-		this->wykonajRuch(kierunek);
-		pozycja = this->getPozycja();
-		if(	this->getSwiat()->sprawdzCzyPoleOkupowane(*pozycja) )
-		{
-			this->kolizja();
-		}
+		this->wykonajRuch(nowaPozycja);
 	}
 }
 
-int Zwierze::kolizja()
+void Zwierze::kolizja(Pozycja docelowaPozycja)
 {
-	/*
-	 * if opponent and defender are the same type:
-	 *    perform multiplication
-	 *    return true
-	 *else:
-	 *    return false 
-	 */
-	return true;
+	Organizm* organizmNaDocelowejPozycji = this->getOrganizmNaPlanszy(docelowaPozycja);
+	if ( organizmNaDocelowejPozycji->getGatunekOrganizmu() == this->getGatunekOrganizmu() )
+	{
+		//TODO animal reproducing
+		this->rozmnozSie(organizmNaDocelowejPozycji);
+	}
+	organizmNaDocelowejPozycji->bronSie(this);
 }
 
 void Zwierze::rysuj()

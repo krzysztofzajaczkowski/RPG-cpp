@@ -56,6 +56,11 @@ int Swiat::sprawdzCzyPoleOkupowane(Pozycja pozycja)
 
 }
 
+Organizm* Swiat::getOrganizmNaPlanszy(Pozycja pozycja)
+{
+    return this->polaPlanszy[pozycja.y][pozycja.x];
+}
+
 
 Organizm*** Swiat::getZajete()
 {
@@ -70,13 +75,13 @@ void Swiat::clearRejestr()
     }
 }
 
-void Swiat::dodajElementRejestru(string rejestr)
+void Swiat::dodajKomunikatWRejestrze(string komunikat)
 {
     for (int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1; ++i)
     {
         this->rejestr[i] = this->rejestr[i+1];
     }
-    this->rejestr[sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1] = rejestr;
+    this->rejestr[sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1] = komunikat;
 }
 
 

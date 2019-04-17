@@ -12,9 +12,10 @@ public:
 	void dodajOrganizmNaPlansze();
 	void ustawNowaPozycje(Pozycja pozycja);
 	void akcja() override;
-	int kolizja() override;
+	void kolizja(Pozycja pozycja) override;
 	void rysuj() override;
 	Zwierze();
-	void wykonajRuch(int kierunek) override;
+	void wykonajRuch(Pozycja pozycja) override;
+	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
 	int getId();
 };

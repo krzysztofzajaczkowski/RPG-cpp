@@ -24,8 +24,9 @@ public:
 	Organizm*** getZajete();
 	void dodajOrganizmNaPlansze(Organizm* organizm);
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
+	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
 	void clearRejestr();
-	void dodajElementRejestru(string rejestr);
+	void dodajKomunikatWRejestrze(string komunikat);
 	int getRozmiarX();
 	int getRozmiarY();
 	void rysujNaglowek();

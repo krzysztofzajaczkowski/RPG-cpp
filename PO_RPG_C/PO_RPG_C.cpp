@@ -36,22 +36,22 @@ int main()
     /*
      *system("cls");
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("Hehe, zartowalem");
+    swiat.dodajKomunikatWRejestrze("Hehe, zartowalem");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("Huehuehuehuehe");
+    swiat.dodajKomunikatWRejestrze("Huehuehuehuehe");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("abc");
+    swiat.dodajKomunikatWRejestrze("abc");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("abecadlo");
+    swiat.dodajKomunikatWRejestrze("abecadlo");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("duuuu");
+    swiat.dodajKomunikatWRejestrze("duuuu");
     cout << endl;
     swiat.rysujRejestr();
-    swiat.dodajElementRejestru("na koniec eb");
+    swiat.dodajKomunikatWRejestrze("na koniec eb");
     cout << endl;
     swiat.rysujRejestr();
 

@@ -110,16 +110,71 @@ Pozycja Organizm::computeNowaPozycja(int kierunek)
 	return pozycja;
 }
 
+int Organizm::getSila()
+{
+	return this->sila;
+}
+
+int Organizm::bronSie(Organizm* napastnik)
+{
+	Pozycja pozycjaObroncy = *this->getPozycja();
+	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
+	if ( napastnik->getSila() >= this->getSila())
+	{
+		return 1;
+		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		this->gin();
+	}
+	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+	napastnik->gin();
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	return 0;
+}
+
 int Organizm::sprawdzCzyPoleOkupowane(Pozycja pozycja)
 {
 	return this->getSwiat()->sprawdzCzyPoleOkupowane(pozycja);
 }
 
-int Organizm::czyKolizja(int kierunek)
+int Organizm::czyKolizja(Pozycja docelowaPozycja)
 {
-	Pozycja pozycja = this->computeNowaPozycja(kierunek);
-	return this->sprawdzCzyPoleOkupowane(pozycja);
+	return this->sprawdzCzyPoleOkupowane(docelowaPozycja);
 	
+}
+
+void Organizm::dodajKomunikatWRejestrzeSwiata(string komunikat)
+{
+	this->getSwiat()->dodajKomunikatWRejestrze(komunikat);
+}
+
+Pozycja* Organizm::znajdzWolnePoleNaDziecko()
+{
+	int i = 0, kierunek, czyPoleZajete = 1;
+	Pozycja* nowaPozycja;
+	while( (i < 6) && (czyPoleZajete) )
+	{
+		int kierunek = this->losujKierunek();
+		*nowaPozycja = this->computeNowaPozycja(kierunek);
+		czyPoleZajete = this->sprawdzCzyPoleOkupowane(*nowaPozycja);
+		++i;
+	}
+	if ( czyPoleZajete )
+	{
+		for (kierunek = 0; i < 4; ++i)
+		{
+			*nowaPozycja = this->computeNowaPozycja(kierunek);
+			czyPoleZajete = this->sprawdzCzyPoleOkupowane(*nowaPozycja);
+			if ( !czyPoleZajete )
+			{
+				kierunek = 4;
+			}
+		}
+	}
+	if (czyPoleZajete)
+	{
+		return nullptr;
+	}
+	return nowaPozycja;
 }
 
 
