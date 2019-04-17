@@ -1,4 +1,0 @@
-﻿1>------ Build started: Project: PO_RPG_C, Configuration: Debug x64 ------
-1>PO_RPG_C.cpp
-1>PO_RPG_C.vcxproj -> C:\MyFiles\Projects\RPG-cpp\x64\Debug\PO_RPG_C.exe
-========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

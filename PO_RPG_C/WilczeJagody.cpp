@@ -25,4 +25,5 @@ void WilczeJagody::reagujNaKolizje(Organizm* napastnik)
 	Pozycja pozycjaObroncy = *this->getPozycja();
 	string komunikat = napastnik->getGatunekOrganizmu() + " zjadl " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ") i zatruwa sie smiertelnie";
 	napastnik->gin();
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
 }
