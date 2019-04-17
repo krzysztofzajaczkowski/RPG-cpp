@@ -10,6 +10,26 @@ Organizm::Organizm(Swiat* swiat, Pozycja pozycja): swiat(swiat)
 	this->pozycja = new Pozycja(pozycja.x, pozycja.y);
 }
 
+void Organizm::setSila(int sila)
+{
+	this->sila = sila;
+}
+
+int Organizm::getSila()
+{
+	return this->sila;
+}
+
+void Organizm::setInicjatywa(int inicjatywa)
+{
+	this->inicjatywa = inicjatywa;
+}
+
+int Organizm::getInicjatywa()
+{
+	return this->inicjatywa;
+}
+
 void Organizm::setElementListyInicjatywy(int numerElementu)
 {
 	this->elementListyInicjatywy = numerElementu;
@@ -104,11 +124,6 @@ Pozycja Organizm::computeNowaPozycja(int kierunek)
 		pozycja.x -= 1;
 	}
 	return pozycja;
-}
-
-int Organizm::getSila()
-{
-	return this->sila;
 }
 
 int Organizm::sprawdzCzyPoleOkupowane(Pozycja pozycja)

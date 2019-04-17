@@ -32,6 +32,7 @@ protected:
 	int krok = 1;
 public:
 	Organizm(Swiat* swiat, Pozycja pozycja);
+	void setSila(int sila);
 	void setElementListyInicjatywy(int numerElementu);
 	void gin();
 	void usunOrganizmZPlanszy();
@@ -43,6 +44,8 @@ public:
 	int getRozmiarSwiataY();
 	Pozycja computeNowaPozycja(int kierunek);
 	int getSila();
+	void setInicjatywa(int inicjatywa);
+	int getInicjatywa();
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
 	virtual int czyKolizja(Pozycja docelowaPozycja);
 	void dodajKomunikatWRejestrzeSwiata(string komunikat);

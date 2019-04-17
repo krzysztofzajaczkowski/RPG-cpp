@@ -10,7 +10,7 @@ WilczeJagody::WilczeJagody(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycj
 {
 	this->setGatunekOrganizmu("Wilcze Jagody");
 	this->setZnak('J');
-	this->sila = 99;
+	this->setSila(99);
 }
 
 void WilczeJagody::zasiej(Pozycja pozycja)

@@ -10,6 +10,7 @@ Roslina::Roslina(Swiat* swiat, Pozycja pozycja): Organizm(swiat, pozycja)
 {
 	id = this->liczbaStworzonychOrganizmow++;
 	this->setTypOrganizmu("Roslina");
+	this->setInicjatywa(0);
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 

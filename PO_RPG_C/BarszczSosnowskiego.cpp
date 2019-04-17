@@ -10,7 +10,7 @@ BarszczSosnowskiego::BarszczSosnowskiego(Swiat* swiat, Pozycja pozycja): Roslina
 {
 	this->setGatunekOrganizmu("Barszcz Sosnowskiego");
 	this->setZnak('B');
-	this->sila = 10;
+	this->setSila(10);
 }
 
 void BarszczSosnowskiego::zasiej(Pozycja pozycja)
