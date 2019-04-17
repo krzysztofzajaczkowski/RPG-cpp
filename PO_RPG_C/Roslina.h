@@ -3,17 +3,16 @@
 #include <cstdlib>
 #include "Organizm.h"
 
-class Zwierze: protected Organizm{
-protected:
-	int krok;
+class Roslina: protected Organizm{
 public:
-	Zwierze(Swiat* swiat, Pozycja pozycja, int krok);
-	void dodajOrganizmNaPlansze();
-	void ustawNowaPozycje(Pozycja pozycja);
+	Roslina(Swiat* swiat, Pozycja pozycjak);
+	void usunOrganizmZPlanszy();
 	void akcja() override;
 	void kolizja(Pozycja pozycja) override;
 	void rysuj() override;
-	void wykonajRuch(Pozycja pozycja) override;
+	void reagujNaKolizje(Organizm* napastnik) override;
+	void rozmnozSie(Organizm* partner) override;
+	bool losujCzyRozmnozenie();
 	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
 	int getId();
 };

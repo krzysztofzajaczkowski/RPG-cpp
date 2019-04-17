@@ -13,11 +13,6 @@ Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozyc
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
-void Zwierze::usunOrganizmZPlanszy()
-{
-	this->getSwiat()->usunOrganizmZPlanszy(this);
-}
-
 void Zwierze::dodajOrganizmNaPlansze()
 {
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
@@ -65,7 +60,10 @@ void Zwierze::kolizja(Pozycja docelowaPozycja)
 		//TODO animal reproducing
 		this->rozmnozSie(organizmNaDocelowejPozycji);
 	}
-	organizmNaDocelowejPozycji->bronSie(this);
+	else
+	{
+		organizmNaDocelowejPozycji->reagujNaKolizje(this);
+	}
 }
 
 void Zwierze::rysuj()

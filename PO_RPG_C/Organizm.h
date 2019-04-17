@@ -34,12 +34,13 @@ public:
 	Organizm(Swiat* swiat, Pozycja pozycja);
 	void setElementListyInicjatywy(int numerElementu);
 	void gin();
+	void usunOrganizmZPlanszy();
 	virtual int losujKierunek();
 	int getRozmiarSwiataX();
 	int getRozmiarSwiataY();
 	Pozycja computeNowaPozycja(int kierunek);
 	int getSila();
-	virtual int bronSie(Organizm* napastnik);
+	virtual void reagujNaKolizje(Organizm* napastnik);
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
 	virtual int czyKolizja(Pozycja docelowaPozycja);
 	void dodajKomunikatWRejestrzeSwiata(string komunikat);

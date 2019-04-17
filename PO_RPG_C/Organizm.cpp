@@ -16,11 +16,15 @@ void Organizm::setElementListyInicjatywy(int numerElementu)
 	this->elementListyInicjatywy = numerElementu;
 }
 
+void Organizm::usunOrganizmZPlanszy()
+{
+	this->getSwiat()->usunOrganizmZPlanszy(this);
+}
+
 void Organizm::gin()
 {
 	//TODO usunac organizm z listy
-	//TODO usunac organizm z planszy
-	this->getSwiat()->usunOrganizmZPlanszy(this);
+	this->usunOrganizmZPlanszy();
 	delete this;
 }
 
@@ -77,35 +81,19 @@ Pozycja Organizm::computeNowaPozycja(int kierunek)
 	Pozycja pozycja = *this->getPozycja();
 	if (kierunek == 0)
 	{
-		pozycja.y -= this->krok;
-		if ( pozycja.y < 0 )
-		{
-			pozycja.y = 0;
-		}
+		pozycja.y -= 1;
 	}
 	if ( kierunek == 1 )
 	{
-		pozycja.x += this->krok;
-		if ( pozycja.x > this->getRozmiarSwiataX() - 1 )
-		{
-			pozycja.x = this->getRozmiarSwiataX() - 1;
-		}
+		pozycja.x += 1;
 	}
 	if ( kierunek == 2 )
 	{
 		pozycja.y += 1;
-		if ( pozycja.y > this->getRozmiarSwiataY() - 1 )
-		{
-			pozycja.y = this->getRozmiarSwiataY() - 1;
-		}
 	}
 	if ( kierunek == 3 )
 	{
 		pozycja.x -= 1;
-		if ( pozycja.x < 0 )
-		{
-			pozycja.x = 0;
-		}
 	}
 	return pozycja;
 }
@@ -115,7 +103,7 @@ int Organizm::getSila()
 	return this->sila;
 }
 
-int Organizm::bronSie(Organizm* napastnik)
+void Organizm::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();
 	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
