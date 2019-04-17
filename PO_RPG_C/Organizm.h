@@ -2,6 +2,9 @@
 #define __ORGANISM_H
 #pragma once
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 class Swiat;
 
@@ -14,28 +17,48 @@ struct Pozycja
 
 class Organizm
 {
+private:
+	string typOrganizmu;
+	string gatunekOrganizmu;
 protected:
 	int sila;
 	int inicjatywa;
+	char znak;
 	Pozycja* pozycja;
 	Swiat* swiat;
 	static int liczbaStworzonychOrganizmow;
 	int id;
 	int elementListyInicjatywy;
-	int step = 1;
+	int krok = 1;
 public:
 	Organizm(Swiat* swiat, Pozycja pozycja);
 	void setElementListyInicjatywy(int numerElementu);
 	void gin();
-	virtual void akcja() = 0;
-	virtual int kolizja() = 0;
-	virtual void rysuj() = 0;
+	void usunOrganizmZPlanszy();
+	void setZnak(char znak);
+	char getZnak();
 	virtual int losujKierunek();
+	int getRozmiarSwiataX();
+	virtual void reagujNaKolizje(Organizm* napastnik) = 0;
+	int getRozmiarSwiataY();
 	Pozycja computeNowaPozycja(int kierunek);
-	virtual int czyKolizja(int kierunek);
+	int getSila();
+	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
+	virtual int czyKolizja(Pozycja docelowaPozycja);
+	void dodajKomunikatWRejestrzeSwiata(string komunikat);
 	virtual bool czyMoznaWykonacRuch(int kierunek);
-	virtual void wykonajRuch(int kierunek) = 0;
 	virtual Pozycja* getPozycja();
 	virtual Swiat* getSwiat();
+	string getTypOrganizmu();
+	void setTypOrganizmu(string typOrganizmu);
+	string getGatunekOrganizmu();
+	void setGatunekOrganizmu(string rodzajOrganizmu);
+	virtual void kolizja(Pozycja docelowaPozycja) = 0;
+	virtual void akcja() = 0;
+	void rysuj() ;
+	virtual Pozycja* znajdzWolnePoleNaDziecko();
+	void zwiekszSile(int bonus);
+	virtual void rozmnozSie(Organizm* partner) = 0;
+	int getId();
 };
 #endif

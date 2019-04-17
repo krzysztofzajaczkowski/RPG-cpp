@@ -8,13 +8,9 @@
 
 Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozycja), krok(krok)
 {
-	id = liczbaStworzonychOrganizmow++;
+	id = this->liczbaStworzonychOrganizmow++;
+	this->setTypOrganizmu("Zwierze");
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
-}
-
-void Zwierze::usunOrganizmZPlanszy()
-{
-	this->getSwiat()->usunOrganizmZPlanszy(this);
 }
 
 void Zwierze::dodajOrganizmNaPlansze()
@@ -22,31 +18,35 @@ void Zwierze::dodajOrganizmNaPlansze()
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
-void Zwierze::wykonajRuch(int kierunek)
+void Zwierze::ustawNowaPozycje(Pozycja pozycja)
+{
+	*this->pozycja = pozycja;
+}
+
+void Zwierze::wykonajRuch(Pozycja pozycja)
 {
 	this->usunOrganizmZPlanszy();
-	Pozycja* pozycja = this->getPozycja();
-	int x = pozycja->x;
-	int y = pozycja->y;
-	if ( kierunek == 0 )
-	{
-		--y;
-	}
-	if ( kierunek == 1 )
-	{
-		++x;	
-	}
-	if ( kierunek == 2 )
-	{
-		++y;
-	}
-	if ( kierunek == 3)
-	{
-		--x;
-	}
-	this->getPozycja()->x = x;
-	this->getPozycja()->y = y;
+	this->ustawNowaPozycje(pozycja);
 	this->dodajOrganizmNaPlansze();
+}
+
+Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
+{
+	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
+}
+
+void Zwierze::reagujNaKolizje(Organizm* napastnik)
+{
+	Pozycja pozycjaObroncy = *this->getPozycja();
+	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
+	if ( napastnik->getSila() >= this->getSila())
+	{
+		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		this->gin();
+	}
+	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+	napastnik->gin();
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
 }
 
 void Zwierze::akcja()
@@ -55,46 +55,25 @@ void Zwierze::akcja()
 	Pozycja* pozycja = this->getPozycja();
 	if ( this->czyMoznaWykonacRuch(kierunek) )
 	{
-		if ( this->czyKolizja(kierunek) )
+		Pozycja nowaPozycja = this->computeNowaPozycja(kierunek);
+		if ( this->czyKolizja(nowaPozycja) )
 		{
-			this->kolizja();
+			this->kolizja(nowaPozycja);
 		}
-		/*
-		 *	Jeœli zajête:
-		 *		Kolizja
-		 *	Jeœli wolne:
-		 *		this->wykonajRuch(kierunek);
-		 */
-		this->getSwiat()->usunOrganizmZPlanszy(this);
-		this->wykonajRuch(kierunek);
-		pozycja = this->getPozycja();
-		if(	this->getSwiat()->sprawdzCzyPoleOkupowane(*pozycja) )
-		{
-			this->kolizja();
-		}
+		this->wykonajRuch(nowaPozycja);
 	}
 }
 
-int Zwierze::kolizja()
+void Zwierze::kolizja(Pozycja docelowaPozycja)
 {
-	/*
-	 * if opponent and defender are the same type:
-	 *    perform multiplication
-	 *    return true
-	 *else:
-	 *    return false 
-	 */
-	return true;
-}
-
-void Zwierze::rysuj()
-{
-	/*
-	 * Draw Zwierze on position
-	 */
-}
-
-int Zwierze::getId()
-{
-	return this->id;
+	Organizm* organizmNaDocelowejPozycji = this->getOrganizmNaPlanszy(docelowaPozycja);
+	if ( organizmNaDocelowejPozycji->getGatunekOrganizmu() == this->getGatunekOrganizmu() )
+	{
+		//TODO animal reproducing
+		this->rozmnozSie(organizmNaDocelowejPozycji);
+	}
+	else
+	{
+		organizmNaDocelowejPozycji->reagujNaKolizje(this);
+	}
 }

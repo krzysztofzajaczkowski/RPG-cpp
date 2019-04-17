@@ -3,17 +3,29 @@
 #include <string>
 #include "Swiat.h"
 #include "Organizm.h"
+#include "Trawa.h"
+#include "Roslina.h"
 #include <algorithm>
+#include <windows.h>
+
+COORD coord={0,0}; // this is global variable
+                                    /*center of axis is set to the top left cornor of the screen*/
+void gotoxy(int x,int y)
+{
+    coord.X=x;
+    coord.Y=y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+}
 
 using namespace std;
 
 Swiat::Swiat()
 {
     this->setRozmiar();
-    this->setZajete();
+    this->createZajete();
 }
 
-void Swiat::setZajete()
+void Swiat::createZajete()
 {
     this->polaPlanszy = new Organizm**[this->rozmiarY];
     for (int i = 0; i < this->rozmiarY; ++i)
@@ -28,33 +40,40 @@ void Swiat::setZajete()
 
 void Swiat::zniszczOrganizm(Organizm* organizm)
 {
-	delete organizm;
+	//TODO remove Organizm from listaInicjatywy and polaPlanszy
+	delete &organizm;
+	
 }
 
 void Swiat::usunOrganizmZPlanszy(Organizm* organizm)
 {
-	Pozycja* pozycjaOrganizmu = organizm->getPozycja();
-	this->zniszczOrganizm(organizm);
-    this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = nullptr;
-	
+    Pozycja pozycjaOrganizmu = *organizm->getPozycja();
+    this->getZajete()[pozycjaOrganizmu.y][pozycjaOrganizmu.x] = nullptr;
+    this->rysujNaPolu(pozycjaOrganizmu, ' ');
 }
 
 
 void Swiat::dodajOrganizmNaPlansze(Organizm* organizm)
 {
-	Pozycja* pozycjaOrganizmu = organizm->getPozycja();
-    this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = organizm;
+    Pozycja pozycjaOrganizmu = *organizm->getPozycja();
+    this->getZajete()[pozycjaOrganizmu.y][pozycjaOrganizmu.x] = organizm;
+	this->rysujNaPolu(pozycjaOrganizmu, organizm->getZnak());
 }
 
 int Swiat::sprawdzCzyPoleOkupowane(Pozycja pozycja)
 {
-	int czyZajete = false;
-	if ( this->getZajete()[pozycja.y][pozycja.x])
-	{
-		czyZajete = true;
-	}
-	return czyZajete;
+    int czyZajete = false;
+    if ( this->getZajete()[pozycja.y][pozycja.x] )
+    {
+        czyZajete = true;
+    }
+    return czyZajete;
 
+}
+
+Organizm* Swiat::getOrganizmNaPlanszy(Pozycja pozycja)
+{
+    return this->polaPlanszy[pozycja.y][pozycja.x];
 }
 
 
@@ -63,7 +82,7 @@ Organizm*** Swiat::getZajete()
     return this->polaPlanszy;
 }
 
-void Swiat::setRejestr()
+void Swiat::clearRejestr()
 {
     for ( int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]) ; ++i)
     {
@@ -71,13 +90,13 @@ void Swiat::setRejestr()
     }
 }
 
-void Swiat::dodajRejestr(string rejestr)
+void Swiat::dodajKomunikatWRejestrze(string komunikat)
 {
     for (int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1; ++i)
     {
         this->rejestr[i] = this->rejestr[i+1];
     }
-    this->rejestr[sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1] = rejestr;
+    this->rejestr[sizeof(this->rejestr)/sizeof(this->rejestr[0]) - 1] = komunikat;
 }
 
 
@@ -95,6 +114,13 @@ void Swiat::rysujNaglowek()
 {
     cout << "Krzysztof Zajaczkowski 175489" << endl;
 }
+
+void Swiat::rysujNaPolu(Pozycja pozycja, char znak)
+{
+    gotoxy(pozycja.x+1, pozycja.y+1);
+    _putch(znak);
+}
+
 
 
 void Swiat::rysujPlansze()
@@ -127,7 +153,7 @@ void Swiat::rysujLegende()
     
 }
 
-void Swiat::rysujRejestrWalk()
+void Swiat::rysujRejestr()
 {
     for (int i = 0; i < sizeof(this->rejestr)/sizeof(this->rejestr[0]); ++i)
     {
@@ -137,10 +163,22 @@ void Swiat::rysujRejestrWalk()
 
 void Swiat::rysujSwiat()
 {
+	/*
+	 * for (int i = 0; i < this->getRozmiarY(); ++i)
+	{
+		for (int j = 0; j < this->getRozmiarX(); ++j)
+		{
+			if (this->getZajete()[i][j] != nullptr)
+			{
+				this->getZajete()[i][j]->rysuj();
+			}
+		}
+	}
+	 */
     // rysuj swiat with legend and combat log
     //rysujPlansze();
     //rysujLegende();
-    //rysujRejestrWalk
+    //rysujRejestr
 }
 
 void Swiat::wykonajRunde()
@@ -152,11 +190,13 @@ void Swiat::wykonajRunde()
      */
 }
 
-int Swiat::dodajOrganizm(Organizm *organizm)
+int Swiat::dodajOrganizmDoSwiata(Organizm *organizm)
 {
+	this->dodajOrganizmNaPlansze(organizm);
     /*
-     * Append organizm to list
+     * Append organizm to listaInicjatywy and polaPlanszy
      */
+	//TODO add Organizm to listaInicjatywy and polaPlanszy
     return true;
 }
 

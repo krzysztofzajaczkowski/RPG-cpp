@@ -151,12 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Guarana.cpp" />
+    <ClCompile Include="Mlecz.cpp" />
+    <ClCompile Include="Roslina.cpp" />
+    <ClCompile Include="Trawa.cpp" />
+    <ClCompile Include="WilczeJagody.cpp" />
     <ClCompile Include="Zwierze.cpp" />
     <ClCompile Include="Organizm.cpp" />
     <ClCompile Include="PO_RPG_C.cpp" />
     <ClCompile Include="Swiat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Guarana.h" />
+    <ClInclude Include="Mlecz.h" />
+    <ClInclude Include="Roslina.h" />
+    <ClInclude Include="Trawa.h" />
+    <ClInclude Include="WilczeJagody.h" />
     <ClInclude Include="Zwierze.h" />
     <ClInclude Include="Organizm.h" />
     <ClInclude Include="Swiat.h" />

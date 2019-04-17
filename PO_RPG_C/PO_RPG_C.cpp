@@ -7,57 +7,69 @@
 #include <windows.h>
 #include "Swiat.h"
 #include "Organizm.h"
+#include "Roslina.h"
 #include "Zwierze.h"
+#include "Trawa.h"
+#include "Guarana.h"
+#include "Mlecz.h"
+#include "WilczeJagody.h"
 
 using namespace std;
 
 
-COORD coord={0,0}; // this is global variable
-                                    /*center of axis is set to the top left cornor of the screen*/
+/*
+ *COORD coord={0,0}; // this is global variable
+                                    center of axis is set to the top left cornor of the screen
 void gotoxy(int x,int y)
 {
     coord.X=x;
     coord.Y=y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
+ */
 
 int main()
 {
-	Swiat swiat;
-	system("cls");
-	swiat.rysujPlansze();
-	for (int i = 0; i < 10; i++)
-	{
-		gotoxy(i,i);
-		_putch('d');
-	}
-	gotoxy(25,5);
-	cout << "tescik" << endl;
-	/*
-	 *system("cls");
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("Hehe, zartowalem");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("Huehuehuehuehe");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("abc");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("abecadlo");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("duuuu");
-	cout << endl;
-	swiat.rysujRejestrWalk();
-	swiat.dodajRejestr("na koniec eb");
-	cout << endl;
-	swiat.rysujRejestrWalk();
+    Swiat* swiat = new Swiat;
+    system("cls");
+    swiat->rysujPlansze();
 
-	 *
-	 */
-	
+    
+    Pozycja* pozycja = new Pozycja(1,1);
+    Trawa trawa(swiat, *pozycja);
+    pozycja->x = pozycja->y = 2;
+    Guarana guarana(swiat, *pozycja);
+    pozycja->x = pozycja->y = 3;
+    Mlecz mlecz(swiat, *pozycja);
+    pozycja->x = pozycja->y = 4;
+    WilczeJagody wilczeJagody(swiat, *pozycja);
+    swiat->rysujSwiat();
+
+    /*
+     *system("cls");
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #1");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #2");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #3");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #4");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #5");
+    cout << endl;
+    swiat.rysujRejestr();
+    swiat.dodajKomunikatWRejestrze("Komunikat #6");
+    cout << endl;
+    swiat.rysujRejestr();
+
+     *
+     */
+    
 
     
 }

@@ -7,8 +7,7 @@ int Organizm::liczbaStworzonychOrganizmow = 1;
 
 Organizm::Organizm(Swiat* swiat, Pozycja pozycja): swiat(swiat)
 {
-	this->getPozycja()->x = pozycja.x;
-	this->getPozycja()->y = pozycja.y;
+	this->pozycja = new Pozycja(pozycja.x, pozycja.y);
 }
 
 void Organizm::setElementListyInicjatywy(int numerElementu)
@@ -16,13 +15,48 @@ void Organizm::setElementListyInicjatywy(int numerElementu)
 	this->elementListyInicjatywy = numerElementu;
 }
 
+void Organizm::usunOrganizmZPlanszy()
+{
+	this->getSwiat()->usunOrganizmZPlanszy(this);
+}
+
+void Organizm::setZnak(char znak)
+{
+	this->znak = znak;
+}
+
+char Organizm::getZnak()
+{
+	return this->znak;
+}
+
 void Organizm::gin()
 {
-	//TODO wyjebac organizm z listy
-	//TODO wyjebac organizm z planszy
-	this->getSwiat()->usunOrganizmZPlanszy(this);
-	delete this;
+	//TODO remove Organizm from listaInicjatywy
+	this->usunOrganizmZPlanszy();
 }
+
+string Organizm::getGatunekOrganizmu()
+{
+	return this->gatunekOrganizmu;
+}
+
+void Organizm::setGatunekOrganizmu(string rodzajOrganizmu)
+{
+	this->gatunekOrganizmu = rodzajOrganizmu;
+}
+
+string Organizm::getTypOrganizmu()
+{
+	return this->typOrganizmu;
+}
+
+void Organizm::setTypOrganizmu(string typOrganizmu)
+{
+	this->typOrganizmu = typOrganizmu;
+}
+
+
 
 Swiat* Organizm::getSwiat()
 {
@@ -38,6 +72,16 @@ int Organizm::losujKierunek()
 {
 	srand(time(NULL));
 	return rand()%4;
+}
+
+int Organizm::getRozmiarSwiataX()
+{
+	return this->getSwiat()->getRozmiarX();
+}
+
+int Organizm::getRozmiarSwiataY()
+{
+	return this->getSwiat()->getRozmiarY();
 }
 
 Pozycja Organizm::computeNowaPozycja(int kierunek)
@@ -62,10 +106,60 @@ Pozycja Organizm::computeNowaPozycja(int kierunek)
 	return pozycja;
 }
 
-int Organizm::czyKolizja(int kierunek)
+int Organizm::getSila()
 {
-	Pozycja pozycja = this->computeNowaPozycja(kierunek);
+	return this->sila;
+}
+
+int Organizm::sprawdzCzyPoleOkupowane(Pozycja pozycja)
+{
 	return this->getSwiat()->sprawdzCzyPoleOkupowane(pozycja);
+}
+
+int Organizm::czyKolizja(Pozycja docelowaPozycja)
+{
+	return this->sprawdzCzyPoleOkupowane(docelowaPozycja);
+	
+}
+
+void Organizm::dodajKomunikatWRejestrzeSwiata(string komunikat)
+{
+	this->getSwiat()->dodajKomunikatWRejestrze(komunikat);
+}
+
+Pozycja* Organizm::znajdzWolnePoleNaDziecko()
+{
+	int i = 0, kierunek, czyPoleZajete = 1;
+	Pozycja* nowaPozycja = new Pozycja(-1,-1);
+	while( (i < 6) && (czyPoleZajete) )
+	{
+		int kierunek = this->losujKierunek();
+		*nowaPozycja = this->computeNowaPozycja(kierunek);
+		czyPoleZajete = this->sprawdzCzyPoleOkupowane(*nowaPozycja);
+		++i;
+	}
+	if ( czyPoleZajete )
+	{
+		for (kierunek = 0; i < 4; ++i)
+		{
+			*nowaPozycja = this->computeNowaPozycja(kierunek);
+			czyPoleZajete = this->sprawdzCzyPoleOkupowane(*nowaPozycja);
+			if ( !czyPoleZajete )
+			{
+				kierunek = 4;
+			}
+		}
+	}
+	if (czyPoleZajete)
+	{
+		return nullptr;
+	}
+	return nowaPozycja;
+}
+
+void Organizm::zwiekszSile(int bonus)
+{
+	this->sila += bonus;
 }
 
 
@@ -74,28 +168,28 @@ bool Organizm::czyMoznaWykonacRuch(int kierunek)
 	bool czyMoznaWykonacRuch = 1;
 	if ( kierunek == 0 )
 	{
-		if (this->getPozycja()->y - 1 < 0 )
+		if (this->getPozycja()->y < 1 )
 		{
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 1 )
 	{
-		if (this->getPozycja()->x + 1 > this->getSwiat()->getRozmiarX() - 1)
+		if (this->getPozycja()->x > this->getSwiat()->getRozmiarX() - 2)
 		{	
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 2 )
 	{
-		if (this->getPozycja()->y + 1 > this->getSwiat()->getRozmiarY() - 1)
+		if (this->getPozycja()->y > this->getSwiat()->getRozmiarY() - 2)
 		{	
 			czyMoznaWykonacRuch = 0;
 		}
 	}
 	if ( kierunek == 3 )
 	{
-		if (this->getPozycja()->x - 1 < 0)
+		if (this->getPozycja()->x < 1)
 		{
 			czyMoznaWykonacRuch = 0;
 		}
@@ -103,3 +197,12 @@ bool Organizm::czyMoznaWykonacRuch(int kierunek)
 	return czyMoznaWykonacRuch;
 }
 
+int Organizm::getId()
+{
+	return this->id;
+}
+
+void Organizm::rysuj()
+{
+	this->getSwiat()->rysujNaPolu(*this->getPozycja(), this->getZnak());
+}
