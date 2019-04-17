@@ -8,7 +8,8 @@
 
 Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozycja), krok(krok)
 {
-	id = liczbaStworzonychOrganizmow++;
+	id = this->liczbaStworzonychOrganizmow++;
+	this->setTypOrganizmu("Zwierze");
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
@@ -34,6 +35,8 @@ void Zwierze::wykonajRuch(int kierunek)
 	this->ustawNowaPozycje(pozycja);
 	this->dodajOrganizmNaPlansze();
 }
+
+
 
 void Zwierze::akcja()
 {
@@ -64,9 +67,6 @@ void Zwierze::akcja()
 
 int Zwierze::kolizja()
 {
-	/*
-	 * CzyKolizja returns null if empty, Organizm if occupied
-	 */
 	/*
 	 * if opponent and defender are the same type:
 	 *    perform multiplication

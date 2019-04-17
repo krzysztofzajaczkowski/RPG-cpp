@@ -24,6 +24,28 @@ void Organizm::gin()
 	delete this;
 }
 
+string Organizm::getGatunekOrganizmu()
+{
+	return this->gatunekOrganizmu;
+}
+
+void Organizm::setGatunekOrganizmu(string rodzajOrganizmu)
+{
+	this->gatunekOrganizmu = rodzajOrganizmu;
+}
+
+string Organizm::getTypOrganizmu()
+{
+	return this->typOrganizmu;
+}
+
+void Organizm::setTypOrganizmu(string typOrganizmu)
+{
+	this->typOrganizmu = typOrganizmu;
+}
+
+
+
 Swiat* Organizm::getSwiat()
 {
 	return this->swiat;
@@ -88,10 +110,16 @@ Pozycja Organizm::computeNowaPozycja(int kierunek)
 	return pozycja;
 }
 
+int Organizm::sprawdzCzyPoleOkupowane(Pozycja pozycja)
+{
+	return this->getSwiat()->sprawdzCzyPoleOkupowane(pozycja);
+}
+
 int Organizm::czyKolizja(int kierunek)
 {
 	Pozycja pozycja = this->computeNowaPozycja(kierunek);
-	return this->getSwiat()->sprawdzCzyPoleOkupowane(pozycja);
+	return this->sprawdzCzyPoleOkupowane(pozycja);
+	
 }
 
 

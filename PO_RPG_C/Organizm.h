@@ -2,6 +2,9 @@
 #define __ORGANISM_H
 #pragma once
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 class Swiat;
 
@@ -14,6 +17,9 @@ struct Pozycja
 
 class Organizm
 {
+private:
+	string typOrganizmu;
+	string gatunekOrganizmu;
 protected:
 	int sila;
 	int inicjatywa;
@@ -31,10 +37,15 @@ public:
 	int getRozmiarSwiataX();
 	int getRozmiarSwiataY();
 	Pozycja computeNowaPozycja(int kierunek);
+	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
 	virtual int czyKolizja(int kierunek);
 	virtual bool czyMoznaWykonacRuch(int kierunek);
 	virtual Pozycja* getPozycja();
 	virtual Swiat* getSwiat();
+	string getTypOrganizmu();
+	void setTypOrganizmu(string typOrganizmu);
+	string getGatunekOrganizmu();
+	void setGatunekOrganizmu(string rodzajOrganizmu);
 	virtual int kolizja() = 0;
 	virtual void akcja() = 0;
 	virtual void rysuj() = 0;
