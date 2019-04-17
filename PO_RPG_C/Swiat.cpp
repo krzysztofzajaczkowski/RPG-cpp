@@ -3,7 +3,19 @@
 #include <string>
 #include "Swiat.h"
 #include "Organizm.h"
+#include "Trawa.h"
+#include "Roslina.h"
 #include <algorithm>
+#include <windows.h>
+
+COORD coord={0,0}; // this is global variable
+                                    /*center of axis is set to the top left cornor of the screen*/
+void gotoxy(int x,int y)
+{
+    coord.X=x;
+    coord.Y=y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+}
 
 using namespace std;
 
@@ -28,21 +40,24 @@ void Swiat::createZajete()
 
 void Swiat::zniszczOrganizm(Organizm* organizm)
 {
-    delete organizm;
+	//TODO remove Organizm from listaInicjatywy and polaPlanszy
+	delete &organizm;
+	
 }
 
 void Swiat::usunOrganizmZPlanszy(Organizm* organizm)
 {
-    Pozycja* pozycjaOrganizmu = organizm->getPozycja();
-    this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = nullptr;
-    
+    Pozycja pozycjaOrganizmu = *organizm->getPozycja();
+    this->getZajete()[pozycjaOrganizmu.y][pozycjaOrganizmu.x] = nullptr;
+    this->rysujNaPolu(pozycjaOrganizmu, ' ');
 }
 
 
 void Swiat::dodajOrganizmNaPlansze(Organizm* organizm)
 {
-    Pozycja* pozycjaOrganizmu = organizm->getPozycja();
-    this->getZajete()[pozycjaOrganizmu->y][pozycjaOrganizmu->x] = organizm;
+    Pozycja pozycjaOrganizmu = *organizm->getPozycja();
+    this->getZajete()[pozycjaOrganizmu.y][pozycjaOrganizmu.x] = organizm;
+	this->rysujNaPolu(pozycjaOrganizmu, organizm->getZnak());
 }
 
 int Swiat::sprawdzCzyPoleOkupowane(Pozycja pozycja)
@@ -100,6 +115,13 @@ void Swiat::rysujNaglowek()
     cout << "Krzysztof Zajaczkowski 175489" << endl;
 }
 
+void Swiat::rysujNaPolu(Pozycja pozycja, char znak)
+{
+    gotoxy(pozycja.x+1, pozycja.y+1);
+    _putch(znak);
+}
+
+
 
 void Swiat::rysujPlansze()
 {
@@ -156,11 +178,12 @@ void Swiat::wykonajRunde()
      */
 }
 
-int Swiat::dodajOrganizm(Organizm *organizm)
+int Swiat::dodajOrganizmDoSwiata(Organizm *organizm)
 {
     /*
-     * Append organizm to list
+     * Append organizm to listaInicjatywy and polaPlanszy
      */
+	//TODO add Organizm to listaInicjatywy and polaPlanszy
     return true;
 }
 

@@ -9,13 +9,8 @@
 Roslina::Roslina(Swiat* swiat, Pozycja pozycja): Organizm(swiat, pozycja)
 {
 	id = this->liczbaStworzonychOrganizmow++;
-	this->setTypOrganizmu("Zwierze");
+	this->setTypOrganizmu("Roslina");
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
-}
-
-void Roslina::usunOrganizmZPlanszy()
-{
-	this->getSwiat()->usunOrganizmZPlanszy(this);
 }
 
 bool Roslina::losujCzyRozmnozenie()
@@ -25,21 +20,13 @@ bool Roslina::losujCzyRozmnozenie()
 	return szansaNaRozmnozenie > 70;
 }
 
+
 void Roslina::rozmnozSie(Organizm* partner)
 {
-	bool czyRozmnazanieMozliwe = 0;
-	int i = 0, kierunek;
-	while( (i < 4) && (!czyRozmnazanieMozliwe) )
-	{
-		kierunek = this->losujKierunek();
-		czyRozmnazanieMozliwe = this->czyMoznaWykonacRuch(kierunek);
-	}
-	Pozycja nowaPozycja = this->computeNowaPozycja(kierunek);
-	if ( this->czyKolizja(nowaPozycja) )
-	{
-		this->kolizja(nowaPozycja);
-	}
+	Pozycja pozycjaDziecka = *this->znajdzWolnePoleNaDziecko();
+	this->zasiej(pozycjaDziecka);
 }
+
 
 void Roslina::akcja()
 {
@@ -60,14 +47,9 @@ void Roslina::kolizja(Pozycja docelowaPozycja)
 	this->reagujNaKolizje(napastnik);
 }
 
-void Roslina::rysuj()
+void Roslina::reagujNaKolizje(Organizm* napastnik)
 {
-	/*
-	 * Draw Zwierze on position
-	 */
-}
-
-int Roslina::getId()
-{
-	return this->id;
+	Pozycja pozycjaObroncy = *this->getPozycja();
+	string komunikat = napastnik->getGatunekOrganizmu() + " zjadl " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+	this->gin();
 }

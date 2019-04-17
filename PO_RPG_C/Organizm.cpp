@@ -7,8 +7,7 @@ int Organizm::liczbaStworzonychOrganizmow = 1;
 
 Organizm::Organizm(Swiat* swiat, Pozycja pozycja): swiat(swiat)
 {
-	this->getPozycja()->x = pozycja.x;
-	this->getPozycja()->y = pozycja.y;
+	this->pozycja = new Pozycja(pozycja.x, pozycja.y);
 }
 
 void Organizm::setElementListyInicjatywy(int numerElementu)
@@ -21,11 +20,20 @@ void Organizm::usunOrganizmZPlanszy()
 	this->getSwiat()->usunOrganizmZPlanszy(this);
 }
 
+void Organizm::setZnak(char znak)
+{
+	this->znak = znak;
+}
+
+char Organizm::getZnak()
+{
+	return this->znak;
+}
+
 void Organizm::gin()
 {
-	//TODO usunac organizm z listy
+	//TODO remove Organizm from listaInicjatywy
 	this->usunOrganizmZPlanszy();
-	delete this;
 }
 
 string Organizm::getGatunekOrganizmu()
@@ -103,22 +111,6 @@ int Organizm::getSila()
 	return this->sila;
 }
 
-void Organizm::reagujNaKolizje(Organizm* napastnik)
-{
-	Pozycja pozycjaObroncy = *this->getPozycja();
-	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
-	if ( napastnik->getSila() >= this->getSila())
-	{
-		return 1;
-		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
-		this->gin();
-	}
-	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
-	napastnik->gin();
-	this->dodajKomunikatWRejestrzeSwiata(komunikat);
-	return 0;
-}
-
 int Organizm::sprawdzCzyPoleOkupowane(Pozycja pozycja)
 {
 	return this->getSwiat()->sprawdzCzyPoleOkupowane(pozycja);
@@ -138,7 +130,7 @@ void Organizm::dodajKomunikatWRejestrzeSwiata(string komunikat)
 Pozycja* Organizm::znajdzWolnePoleNaDziecko()
 {
 	int i = 0, kierunek, czyPoleZajete = 1;
-	Pozycja* nowaPozycja;
+	Pozycja* nowaPozycja = new Pozycja(-1,-1);
 	while( (i < 6) && (czyPoleZajete) )
 	{
 		int kierunek = this->losujKierunek();
@@ -163,6 +155,11 @@ Pozycja* Organizm::znajdzWolnePoleNaDziecko()
 		return nullptr;
 	}
 	return nowaPozycja;
+}
+
+void Organizm::zwiekszSile(int bonus)
+{
+	this->sila += bonus;
 }
 
 
@@ -200,3 +197,12 @@ bool Organizm::czyMoznaWykonacRuch(int kierunek)
 	return czyMoznaWykonacRuch;
 }
 
+int Organizm::getId()
+{
+	return this->id;
+}
+
+void Organizm::rysuj()
+{
+	this->getSwiat()->rysujNaPolu(*this->getPozycja(), this->getZnak());
+}

@@ -35,7 +35,19 @@ Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
 	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
 }
 
-
+void Zwierze::reagujNaKolizje(Organizm* napastnik)
+{
+	Pozycja pozycjaObroncy = *this->getPozycja();
+	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
+	if ( napastnik->getSila() >= this->getSila())
+	{
+		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		this->gin();
+	}
+	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+	napastnik->gin();
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+}
 
 void Zwierze::akcja()
 {
@@ -64,16 +76,4 @@ void Zwierze::kolizja(Pozycja docelowaPozycja)
 	{
 		organizmNaDocelowejPozycji->reagujNaKolizje(this);
 	}
-}
-
-void Zwierze::rysuj()
-{
-	/*
-	 * Draw Zwierze on position
-	 */
-}
-
-int Zwierze::getId()
-{
-	return this->id;
 }

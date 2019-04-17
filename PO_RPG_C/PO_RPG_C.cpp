@@ -7,32 +7,35 @@
 #include <windows.h>
 #include "Swiat.h"
 #include "Organizm.h"
+#include "Roslina.h"
 #include "Zwierze.h"
+#include "Trawa.h"
 
 using namespace std;
 
 
-COORD coord={0,0}; // this is global variable
-                                    /*center of axis is set to the top left cornor of the screen*/
+/*
+ *COORD coord={0,0}; // this is global variable
+                                    center of axis is set to the top left cornor of the screen
 void gotoxy(int x,int y)
 {
     coord.X=x;
     coord.Y=y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
+ */
 
 int main()
 {
-    Swiat swiat;
+    Swiat* swiat = new Swiat;
     system("cls");
-    swiat.rysujPlansze();
-    for (int i = 0; i < 10; i++)
-    {
-        gotoxy(i,i);
-        _putch('d');
-    }
-    gotoxy(25,5);
-    cout << "tescik" << endl;
+    swiat->rysujPlansze();
+
+	
+	Pozycja* pozycja = new Pozycja(1,1);
+	Trawa trawa(swiat, *pozycja);
+	trawa.rysuj();
+
     /*
      *system("cls");
     swiat.rysujRejestr();

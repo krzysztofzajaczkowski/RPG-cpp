@@ -5,6 +5,7 @@
 #include <list>
 
 struct Pozycja;
+
 class Organizm;
 
 using namespace std;
@@ -34,9 +35,10 @@ public:
 	void rysujLegende();
 	void rysujRejestr();
 	void rysujSwiat();
-	int dodajOrganizm(Organizm* organizm);
+	int dodajOrganizmDoSwiata(Organizm* organizm);
 	int sortujListeInicjatywy();
 	void wykonajRunde();
 	void setRozmiar();
+	void rysujNaPolu(Pozycja pozycja, char znak);
 };
 #endif

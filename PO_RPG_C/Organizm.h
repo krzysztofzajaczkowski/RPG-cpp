@@ -3,7 +3,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "Zwierze.h"
 
 using namespace std;
 
@@ -24,6 +23,7 @@ private:
 protected:
 	int sila;
 	int inicjatywa;
+	char znak;
 	Pozycja* pozycja;
 	Swiat* swiat;
 	static int liczbaStworzonychOrganizmow;
@@ -35,12 +35,14 @@ public:
 	void setElementListyInicjatywy(int numerElementu);
 	void gin();
 	void usunOrganizmZPlanszy();
+	void setZnak(char znak);
+	char getZnak();
 	virtual int losujKierunek();
 	int getRozmiarSwiataX();
+	virtual void reagujNaKolizje(Organizm* napastnik) = 0;
 	int getRozmiarSwiataY();
 	Pozycja computeNowaPozycja(int kierunek);
 	int getSila();
-	virtual void reagujNaKolizje(Organizm* napastnik);
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
 	virtual int czyKolizja(Pozycja docelowaPozycja);
 	void dodajKomunikatWRejestrzeSwiata(string komunikat);
@@ -51,11 +53,12 @@ public:
 	void setTypOrganizmu(string typOrganizmu);
 	string getGatunekOrganizmu();
 	void setGatunekOrganizmu(string rodzajOrganizmu);
-	virtual void kolizja(Pozycja pozycja) = 0;
+	virtual void kolizja(Pozycja docelowaPozycja) = 0;
 	virtual void akcja() = 0;
-	virtual void rysuj() = 0;
-	virtual void wykonajRuch(Pozycja pozycja) = 0;
+	void rysuj() ;
 	virtual Pozycja* znajdzWolnePoleNaDziecko();
+	void zwiekszSile(int bonus);
 	virtual void rozmnozSie(Organizm* partner) = 0;
+	int getId();
 };
 #endif
