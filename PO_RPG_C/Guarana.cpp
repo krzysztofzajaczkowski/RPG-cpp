@@ -14,8 +14,8 @@ Guarana::Guarana(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycja)
 
 void Guarana::zasiej(Pozycja pozycja)
 {
-	Guarana* nowaTrawa = new Guarana(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(nowaTrawa);
+	Guarana* nowaGuarana = new Guarana(this->swiat, pozycja);
+	this->getSwiat()->dodajOrganizmNaPlansze(nowaGuarana);
 }
 
 void Guarana::zwiekszSileNapastnika(Organizm* napastnik)

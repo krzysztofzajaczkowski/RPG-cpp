@@ -14,8 +14,8 @@ Mlecz::Mlecz(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycja)
 
 void Mlecz::zasiej(Pozycja pozycja)
 {
-	Mlecz* nowaTrawa = new Mlecz(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(nowaTrawa);
+	Mlecz* nowyMlecz = new Mlecz(this->swiat, pozycja);
+	this->getSwiat()->dodajOrganizmNaPlansze(nowyMlecz);
 }
 
 void Mlecz::akcja()
