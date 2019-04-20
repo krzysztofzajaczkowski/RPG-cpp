@@ -42,6 +42,7 @@ void Zwierze::reagujNaKolizje(Organizm* napastnik)
 	if ( napastnik->getSila() >= this->getSila())
 	{
 		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		//TODO execute move on winner
 		this->gin();
 	}
 	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";

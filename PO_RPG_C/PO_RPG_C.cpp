@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
+#include <list>
 #include <typeinfo>
 #include <windows.h>
 #include "Swiat.h"
@@ -33,9 +34,10 @@ int main()
     Swiat* swiat = new Swiat;
     system("cls");
     swiat->rysujPlansze();
-
+	
     
-    Pozycja* pozycja = new Pozycja(1,1);
+   /*
+    * Pozycja* pozycja = new Pozycja(1,1);
     Trawa trawa(swiat, *pozycja);
     pozycja->x = pozycja->y = 2;
     Guarana guarana(swiat, *pozycja);
@@ -44,6 +46,8 @@ int main()
     pozycja->x = pozycja->y = 4;
     WilczeJagody wilczeJagody(swiat, *pozycja);
     swiat->rysujSwiat();
+    *
+    */
 
     /*
      *system("cls");

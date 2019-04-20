@@ -6,7 +6,7 @@
 #include "Swiat.h"
 #include <string>
 
-class BarszczSosnowskiego: protected Roslina{
+class BarszczSosnowskiego: public Roslina{
 public:
 	BarszczSosnowskiego(Swiat* swiat, Pozycja pozycja);
 	void reagujNaKolizje(Organizm* napastnik) override;

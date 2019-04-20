@@ -2,13 +2,13 @@
 #include <iostream>
 #include <cstdlib>
 #include "Organizm.h"
-#include "Roslina.h"
+#include "Zwierze.h"
 #include "Swiat.h"
 #include <string>
 
-class WilczeJagody: public Roslina{
+class Zolw: public Zwierze{
 public:
-	WilczeJagody(Swiat* swiat, Pozycja pozycja);
+	Zolw(Swiat* swiat, Pozycja pozycja);
+	void akcja() override;
 	void reagujNaKolizje(Organizm* napastnik) override;
-	void zasiej(Pozycja pozycja) override;
 };

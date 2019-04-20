@@ -6,7 +6,7 @@
 #include "Swiat.h"
 #include <string>
 
-class Wilk: protected Zwierze{
+class Wilk: public Zwierze{
 public:
 	Wilk(Swiat* swiat, Pozycja pozycja);
 };

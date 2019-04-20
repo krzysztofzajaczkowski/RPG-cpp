@@ -52,5 +52,6 @@ void Roslina::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();
 	string komunikat = napastnik->getGatunekOrganizmu() + " zjadl " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+	//TODO execute move on winner
 	this->gin();
 }

@@ -42,6 +42,18 @@
     <ClCompile Include="WilczeJagody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BarszczSosnowskiego.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wilk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Owca.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Zolw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Swiat.h">
@@ -66,6 +78,18 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="WilczeJagody.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BarszczSosnowskiego.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wilk.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Owca.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zolw.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
