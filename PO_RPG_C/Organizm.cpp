@@ -25,6 +25,23 @@ void Organizm::setInicjatywa(int inicjatywa)
 	this->inicjatywa = inicjatywa;
 }
 
+void Organizm::wykonajRuch(Pozycja pozycja)
+{
+	this->usunOrganizmZPlanszy();
+	this->ustawNowaPozycje(pozycja);
+	this->dodajOrganizmNaPlansze();
+}
+
+void Organizm::dodajOrganizmNaPlansze()
+{
+	this->getSwiat()->dodajOrganizmNaPlansze(this);
+}
+
+void Organizm::ustawNowaPozycje(Pozycja pozycja)
+{
+	*this->pozycja = pozycja;
+}
+
 int Organizm::getInicjatywa()
 {
 	return this->inicjatywa;
@@ -142,7 +159,7 @@ void Organizm::dodajKomunikatWRejestrzeSwiata(string komunikat)
 	this->getSwiat()->dodajKomunikatWRejestrze(komunikat);
 }
 
-Pozycja* Organizm::znajdzWolnePoleNaDziecko()
+Pozycja* Organizm::znajdzSasiednieWolnePole()
 {
 	int i = 0, kierunek, czyPoleZajete = 1;
 	Pozycja* nowaPozycja = new Pozycja(-1,-1);
@@ -167,6 +184,7 @@ Pozycja* Organizm::znajdzWolnePoleNaDziecko()
 	}
 	if (czyPoleZajete)
 	{
+		delete nowaPozycja;
 		return nullptr;
 	}
 	return nowaPozycja;

@@ -13,23 +13,6 @@ Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozyc
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
-void Zwierze::dodajOrganizmNaPlansze()
-{
-	this->getSwiat()->dodajOrganizmNaPlansze(this);
-}
-
-void Zwierze::ustawNowaPozycje(Pozycja pozycja)
-{
-	*this->pozycja = pozycja;
-}
-
-void Zwierze::wykonajRuch(Pozycja pozycja)
-{
-	this->usunOrganizmZPlanszy();
-	this->ustawNowaPozycje(pozycja);
-	this->dodajOrganizmNaPlansze();
-}
-
 Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
 {
 	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
@@ -53,7 +36,6 @@ void Zwierze::reagujNaKolizje(Organizm* napastnik)
 void Zwierze::akcja()
 {
 	int kierunek = this->losujKierunek();
-	Pozycja* pozycja = this->getPozycja();
 	if ( this->czyMoznaWykonacRuch(kierunek) )
 	{
 		Pozycja nowaPozycja = this->computeNowaPozycja(kierunek);

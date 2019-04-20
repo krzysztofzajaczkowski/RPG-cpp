@@ -48,6 +48,8 @@ public:
 	int getInicjatywa();
 	int sprawdzCzyPoleOkupowane(Pozycja pozycja);
 	virtual int czyKolizja(Pozycja docelowaPozycja);
+	void dodajOrganizmNaPlansze();
+	void ustawNowaPozycje(Pozycja pozycja);
 	void dodajKomunikatWRejestrzeSwiata(string komunikat);
 	virtual bool czyMoznaWykonacRuch(int kierunek);
 	virtual Pozycja* getPozycja();
@@ -58,8 +60,9 @@ public:
 	void setGatunekOrganizmu(string rodzajOrganizmu);
 	virtual void kolizja(Pozycja docelowaPozycja) = 0;
 	virtual void akcja() = 0;
-	void rysuj() ;
-	virtual Pozycja* znajdzWolnePoleNaDziecko();
+	void rysuj();
+	void wykonajRuch(Pozycja pozycja);
+	virtual Pozycja* znajdzSasiednieWolnePole();
 	void zwiekszSile(int bonus);
 	virtual void rozmnozSie(Organizm* partner) = 0;
 	int getId();

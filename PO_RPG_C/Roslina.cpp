@@ -24,8 +24,12 @@ bool Roslina::losujCzyRozmnozenie()
 
 void Roslina::rozmnozSie(Organizm* partner)
 {
-	Pozycja pozycjaDziecka = *this->znajdzWolnePoleNaDziecko();
-	this->zasiej(pozycjaDziecka);
+	Pozycja *pozycjaDziecka = this->znajdzSasiednieWolnePole();
+	if ( pozycjaDziecka != nullptr)
+	{
+		this->zasiej(*pozycjaDziecka);
+	}
+	delete pozycjaDziecka;
 }
 
 
