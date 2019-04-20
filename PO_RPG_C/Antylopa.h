@@ -12,4 +12,5 @@ public:
 	void akcja() override;
 	void reagujNaKolizje(Organizm* napastnik) override;
 	void ucieczka(Pozycja pozycjaUcieczki, Organizm* napastnik);
+	void rozmnozSie(Organizm* partner);
 };

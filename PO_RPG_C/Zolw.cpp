@@ -31,6 +31,20 @@ void Zolw::reagujNaKolizje(Organizm* napastnik)
 	}
 }
 
+void Zolw::rozmnozSie(Organizm* partner)
+{
+	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
+	if ( pozycjaDziecka == nullptr )
+	{
+		Pozycja* pozycjaDziecka = partner->znajdzSasiednieWolnePole();
+	}
+	if ( pozycjaDziecka != nullptr )
+	{
+		Organizm* dziecko = new Zolw(swiat, *pozycjaDziecka);
+		this->urodzDziecko(dziecko);
+	}
+}
+
 
 
 

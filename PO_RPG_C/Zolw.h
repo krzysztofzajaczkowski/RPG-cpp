@@ -11,4 +11,5 @@ public:
 	Zolw(Swiat* swiat, Pozycja pozycja);
 	void akcja() override;
 	void reagujNaKolizje(Organizm* napastnik) override;
+	void rozmnozSie(Organizm* partner);
 };

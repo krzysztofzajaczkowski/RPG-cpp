@@ -75,3 +75,17 @@ void Lis::akcja()
 	}
 	this->wykonajRuch(nowaPozycja);
 }
+
+void Lis::rozmnozSie(Organizm* partner)
+{
+	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
+	if ( pozycjaDziecka == nullptr )
+	{
+		Pozycja* pozycjaDziecka = partner->znajdzSasiednieWolnePole();
+	}
+	if ( pozycjaDziecka != nullptr )
+	{
+		Organizm* dziecko = new Lis(swiat, *pozycjaDziecka);
+		this->urodzDziecko(dziecko);
+	}
+}
