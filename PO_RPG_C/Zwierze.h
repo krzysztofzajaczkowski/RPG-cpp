@@ -10,5 +10,6 @@ public:
 	void akcja() override;
 	void kolizja(Pozycja docelowaPozycja) override;
 	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
+	void urodzDziecko(Organizm* dziecko);
 	void reagujNaKolizje(Organizm* napastnik) override;
 };

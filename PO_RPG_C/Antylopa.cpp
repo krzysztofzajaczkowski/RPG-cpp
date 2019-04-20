@@ -63,7 +63,19 @@ void Antylopa::ucieczka(Pozycja pozycjaUcieczki, Organizm* napastnik)
 	this->wykonajRuch(pozycjaUcieczki);
 }
 
-
+void Antylopa::rozmnozSie(Organizm* partner)
+{
+	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
+	if ( pozycjaDziecka == nullptr )
+	{
+		Pozycja* pozycjaDziecka = partner->znajdzSasiednieWolnePole();
+	}
+	if ( pozycjaDziecka != nullptr )
+	{
+		Organizm* dziecko = new Antylopa(swiat, *pozycjaDziecka);
+		this->urodzDziecko(dziecko);
+	}
+}
 
 
 

@@ -9,4 +9,5 @@
 class Wilk: public Zwierze{
 public:
 	Wilk(Swiat* swiat, Pozycja pozycja);
+	void rozmnozSie(Organizm* partner) override;
 };

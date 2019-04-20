@@ -9,4 +9,5 @@
 class Owca: public Zwierze{
 public:
 	Owca(Swiat* swiat, Pozycja pozycja);
+	void rozmnozSie(Organizm* partner);
 };

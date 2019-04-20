@@ -18,6 +18,11 @@ Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
 	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
 }
 
+void Zwierze::urodzDziecko(Organizm* dziecko)
+{
+	this->getSwiat()->dodajOrganizmDoSwiata(dziecko);
+}
+
 void Zwierze::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();

@@ -10,6 +10,7 @@ class Lis: public Zwierze{
 public:
 	Lis(Swiat* swiat, Pozycja pozycja);
 	void akcja() override;
+	void rozmnozSie(Organizm* partner);
 	int znajdzBezpiecznePole();
 	int czyBezpieczne(Pozycja pozycja);
 	int znajdzDowolneBezpiecznePole();
