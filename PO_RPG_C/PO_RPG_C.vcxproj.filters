@@ -54,6 +54,9 @@
     <ClCompile Include="Zolw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Swiat.h">
@@ -90,6 +93,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Zolw.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lis.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
