@@ -10,9 +10,18 @@ class Swiat;
 
 struct Pozycja
 {
-	Pozycja(int x, int y): x(x), y(y) {};
+	Pozycja(int x=-1, int y=-1): x(x), y(y) {};
 	int x;
 	int y;
+	bool czyPrawidlowa()
+	{
+		return (this->x >= 0) && (this->y >= 0);
+	}
+
+	bool operator!=(Pozycja right)
+	{
+		return ( this->x != right.x ) || ( this->y != right.y );
+	}
 };
 
 class Organizm
@@ -27,12 +36,17 @@ protected:
 	Pozycja* pozycja;
 	Swiat* swiat;
 	static int liczbaStworzonychOrganizmow;
+	bool operator==(Organizm* prawy);
 	int id;
 	int elementListyInicjatywy;
-	int krok = 1;
+	int krok;
+	int doZabicia = 0;
 public:
 	Organizm(Swiat* swiat, Pozycja pozycja);
+	Organizm(Swiat* swiat, Pozycja pozycja, int krok);
 	void setSila(int sila);
+	void setDoZabicia();
+	int czyDoZabicia();
 	void setElementListyInicjatywy(int numerElementu);
 	void gin();
 	void usunOrganizmZPlanszy();
@@ -42,7 +56,7 @@ public:
 	int getRozmiarSwiataX();
 	virtual void reagujNaKolizje(Organizm* napastnik) = 0;
 	int getRozmiarSwiataY();
-	Pozycja computeNowaPozycja(int kierunek);
+	Pozycja computeNowaPozycja(int kierunek, int krok = 1);
 	int getSila();
 	void setInicjatywa(int inicjatywa);
 	int getInicjatywa();
@@ -51,7 +65,8 @@ public:
 	void dodajOrganizmNaPlansze();
 	void ustawNowaPozycje(Pozycja pozycja);
 	void dodajKomunikatWRejestrzeSwiata(string komunikat);
-	virtual bool czyMoznaWykonacRuch(int kierunek);
+	int getKrok();
+	virtual bool czyMoznaWykonacRuch(int kierunek, int krok = 1);
 	virtual Pozycja* getPozycja();
 	virtual Swiat* getSwiat();
 	string getTypOrganizmu();
@@ -64,6 +79,7 @@ public:
 	void wykonajRuch(Pozycja pozycja);
 	virtual Pozycja* znajdzSasiednieWolnePole();
 	void zwiekszSile(int bonus);
+	void setKrok(int krok);
 	virtual void rozmnozSie(Organizm* partner) = 0;
 	int getId();
 };

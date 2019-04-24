@@ -5,7 +5,7 @@
 #include "Antylopa.h"
 #include "Swiat.h"
 
-Antylopa::Antylopa(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
+Antylopa::Antylopa(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 2)
 {
 	this->setGatunekOrganizmu("Antylopa");
 	this->setZnak('A');
@@ -16,43 +16,58 @@ Antylopa::Antylopa(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 void Antylopa::akcja()
 {
 	int kierunek = this->losujKierunek();
-	Pozycja* nowaPozycja = nullptr;
-	for ( int i = 0; i < 2 ; i++)
+	Pozycja nowaPozycja = *this->getPozycja();
+	int ruchWykonany = 0;
+	int krokProby = this->getKrok();
+	while((!ruchWykonany) && (krokProby > 0))
 	{
-		if ( this->czyMoznaWykonacRuch(kierunek) )
+		if ( this->czyMoznaWykonacRuch(kierunek, krokProby) )
 		{
-			*nowaPozycja = this->computeNowaPozycja(kierunek);
+			ruchWykonany = 1;
+			nowaPozycja = this->computeNowaPozycja(kierunek, krokProby);
+		}
+		--krokProby;
+	}
+	if ( ruchWykonany )
+	{
+		if ( this->czyKolizja(nowaPozycja) )
+		{
+			this->kolizja(nowaPozycja);
+		}
+		else
+		{
+			Pozycja staraPozycja = *this->getPozycja();
+			this->wykonajRuch(nowaPozycja);
 		}
 	}
-	if ( this->czyKolizja(*nowaPozycja) )
-		{
-			this->kolizja(*nowaPozycja);
-		}
-		this->wykonajRuch(*nowaPozycja);
-	delete nowaPozycja;
 }
 
 void Antylopa::reagujNaKolizje(Organizm* napastnik)
 {
-	srand(time(NULL));
-	int szansaNaUcieczke = rand()%100 + 1;
-	int czyUcieczka = 0;
-	if (szansaNaUcieczke > 50)
+	int czyProbaUcieczki = this->czyUcieczka();
+	int czyUcieczkaUdana = 0;
+	if (czyProbaUcieczki)
 	{
+		this->usunOrganizmZPlanszy();
 		Pozycja* pozycjaUcieczki = this->znajdzSasiednieWolnePole();
 		if ( pozycjaUcieczki != nullptr)
 		{
-			czyUcieczka = 1;
+			czyUcieczkaUdana = 1;
 			Pozycja pozycjaObroncy = *this->getPozycja();
 			napastnik->wykonajRuch(pozycjaObroncy);
 			this->ucieczka(*pozycjaUcieczki, napastnik);
 			delete pozycjaUcieczki;
 		}
 	}
-	if ( !czyUcieczka )
+	if ( !czyUcieczkaUdana )
 	{
 		Zwierze::reagujNaKolizje(napastnik);
 	}
+}
+
+int Antylopa::czyUcieczka()
+{
+	return (rand()%100 + 1) > 50;
 }
 
 void Antylopa::ucieczka(Pozycja pozycjaUcieczki, Organizm* napastnik)
@@ -61,6 +76,7 @@ void Antylopa::ucieczka(Pozycja pozycjaUcieczki, Organizm* napastnik)
 	string komunikat = this->getGatunekOrganizmu() + " uciekla przed " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
 	this->dodajKomunikatWRejestrzeSwiata(komunikat);
 	this->wykonajRuch(pozycjaUcieczki);
+	napastnik->rysuj();
 }
 
 void Antylopa::rozmnozSie(Organizm* partner)
@@ -68,10 +84,12 @@ void Antylopa::rozmnozSie(Organizm* partner)
 	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
 	if ( pozycjaDziecka == nullptr )
 	{
-		Pozycja* pozycjaDziecka = partner->znajdzSasiednieWolnePole();
+		pozycjaDziecka = partner->znajdzSasiednieWolnePole();
 	}
 	if ( pozycjaDziecka != nullptr )
 	{
+		string komunikat = "Antylopa rodzi sie na (" + to_string(pozycjaDziecka->x) + ", " + to_string(pozycjaDziecka->y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
 		Organizm* dziecko = new Antylopa(swiat, *pozycjaDziecka);
 		this->urodzDziecko(dziecko);
 	}

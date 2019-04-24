@@ -12,10 +12,12 @@ Guarana::Guarana(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycja)
 	this->setZnak('G');
 }
 
-void Guarana::zasiej(Pozycja pozycja)
+void Guarana::zasiej(Pozycja pozycjaDziecka)
 {
-	Guarana* nowaGuarana = new Guarana(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(nowaGuarana);
+	string komunikat = "Guarana rosnie na (" + to_string(pozycjaDziecka.x) + ", " + to_string(pozycjaDziecka.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	Guarana* nowaGuarana = new Guarana(this->swiat, pozycjaDziecka);
+	this->getSwiat()->dodajOrganizmDoSwiata(nowaGuarana);
 }
 
 void Guarana::zwiekszSileNapastnika(Organizm* napastnik)

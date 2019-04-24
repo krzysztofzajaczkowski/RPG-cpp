@@ -13,10 +13,12 @@ WilczeJagody::WilczeJagody(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycj
 	this->setSila(99);
 }
 
-void WilczeJagody::zasiej(Pozycja pozycja)
+void WilczeJagody::zasiej(Pozycja pozycjaDziecka)
 {
-	WilczeJagody* noweJagody = new WilczeJagody(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(noweJagody);
+	string komunikat = "Wilcze Jagody rosna na (" + to_string(pozycjaDziecka.x) + ", " + to_string(pozycjaDziecka.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	WilczeJagody* noweJagody = new WilczeJagody(this->swiat, pozycjaDziecka);
+	this->getSwiat()->dodajOrganizmDoSwiata(noweJagody);
 }
 
 

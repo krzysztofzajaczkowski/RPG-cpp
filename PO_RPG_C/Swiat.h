@@ -20,7 +20,7 @@ protected:
 public:
 	Swiat();
 	void createZajete();
-	void zniszczOrganizm(Organizm* organizm);
+	list<Organizm*>::iterator zniszczOrganizm(list<Organizm*>::iterator iterator);
 	void usunOrganizmZPlanszy(Organizm* organizm);
 	Organizm*** getZajete();
 	void dodajOrganizmNaPlansze(Organizm* organizm);
@@ -36,7 +36,7 @@ public:
 	void rysujRejestr();
 	void rysujSwiat();
 	int dodajOrganizmDoSwiata(Organizm* organizm);
-	int sortujListeInicjatywy();
+	void sortujListeInicjatywy();
 	void wykonajRunde();
 	void setRozmiar();
 	void rysujNaPolu(Pozycja pozycja, char znak);

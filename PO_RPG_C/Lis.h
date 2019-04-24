@@ -11,7 +11,7 @@ public:
 	Lis(Swiat* swiat, Pozycja pozycja);
 	void akcja() override;
 	void rozmnozSie(Organizm* partner);
-	int znajdzBezpiecznePole();
+	Pozycja znajdzBezpiecznePole();
 	int czyBezpieczne(Pozycja pozycja);
-	int znajdzDowolneBezpiecznePole();
+	Pozycja znajdzDowolneBezpiecznePole();
 };

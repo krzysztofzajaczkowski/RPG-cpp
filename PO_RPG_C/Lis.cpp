@@ -17,10 +17,14 @@ Lis::Lis(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 int Lis::czyBezpieczne(Pozycja pozycja)
 {
 	Organizm* napastnik = this->getOrganizmNaPlanszy(pozycja);
-	return this->getSila() >= napastnik->getSila();
+	if ( napastnik != nullptr)
+	{
+		return this->getSila() >= napastnik->getSila();
+	}
+	return 1;
 }
 
-int Lis::znajdzDowolneBezpiecznePole()
+Pozycja Lis::znajdzDowolneBezpiecznePole()
 {
 	for ( int i = 0; i < 4; ++i )
 	{
@@ -33,15 +37,20 @@ int Lis::znajdzDowolneBezpiecznePole()
 			{
 				if ( this->czyBezpieczne(nowaPozycja) )
 				{
-					return 1;
+					return nowaPozycja;
 				}
 			}
+			else
+			{
+				return nowaPozycja;
+			}
+
 		}
 	}
-	return -1;
+	return *this->getPozycja();
 }
 
-int Lis::znajdzBezpiecznePole()
+Pozycja Lis::znajdzBezpiecznePole()
 {
 	int kierunek = this->losujKierunek();
 	Pozycja* pozycja = this->getPozycja();
@@ -52,32 +61,42 @@ int Lis::znajdzBezpiecznePole()
 		{
 			if ( this->czyBezpieczne(nowaPozycja) )
 			{
-				return kierunek;
+				return nowaPozycja;
 			}
 			else
 			{
 				return this->znajdzDowolneBezpiecznePole();
 			}
 		}
-		return kierunek;
+		return nowaPozycja;
 	}
-	return -1;
+	return *this->getPozycja();
 }
 
 
 void Lis::akcja()
 {
-	int kierunek = this->znajdzBezpiecznePole();
-	Pozycja nowaPozycja = this->computeNowaPozycja(kierunek);
-	if ( this->czyKolizja(nowaPozycja) )
+	Pozycja nowaPozycja = this->znajdzBezpiecznePole();
+	if ( nowaPozycja != *this->getPozycja() )
 	{
-		this->kolizja(nowaPozycja);
+		if ( this->czyKolizja(nowaPozycja) )
+		{
+			this->kolizja(nowaPozycja);
+		}
+		else
+		{
+			this->wykonajRuch(nowaPozycja);
+		}
+		
 	}
-	this->wykonajRuch(nowaPozycja);
+	
+	
 }
 
 void Lis::rozmnozSie(Organizm* partner)
 {
+	//TODO Lis is born on wrong coordinates, fix that
+	// Debug by writing all X position and all Y positions on board, because something's not right
 	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
 	if ( pozycjaDziecka == nullptr )
 	{
@@ -85,6 +104,8 @@ void Lis::rozmnozSie(Organizm* partner)
 	}
 	if ( pozycjaDziecka != nullptr )
 	{
+		string komunikat = "Lis rodzi sie na (" + to_string(pozycjaDziecka->x) + ", " + to_string(pozycjaDziecka->y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
 		Organizm* dziecko = new Lis(swiat, *pozycjaDziecka);
 		this->urodzDziecko(dziecko);
 	}

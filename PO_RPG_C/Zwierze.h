@@ -2,11 +2,10 @@
 #include "Organizm.h"
 
 class Zwierze: public Organizm {
-protected:
-	int krok;
 public:
 	virtual ~Zwierze() = default;
 	Zwierze(Swiat* swiat, Pozycja pozycja, int krok);
+	Zwierze(Swiat* swiat, Pozycja pozycja);
 	void akcja() override;
 	void kolizja(Pozycja docelowaPozycja) override;
 	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);

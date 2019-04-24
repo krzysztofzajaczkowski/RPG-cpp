@@ -16,18 +16,21 @@ Roslina::Roslina(Swiat* swiat, Pozycja pozycja): Organizm(swiat, pozycja)
 
 bool Roslina::losujCzyRozmnozenie()
 {
-	srand(time(NULL));
 	int szansaNaRozmnozenie = rand()%100 + 1;
-	return szansaNaRozmnozenie > 70;
+	return szansaNaRozmnozenie > 90;
 }
 
 
 void Roslina::rozmnozSie(Organizm* partner)
 {
-	Pozycja *pozycjaDziecka = this->znajdzSasiednieWolnePole();
+	Pozycja* pozycjaDziecka = NULL;
+	pozycjaDziecka = this->znajdzSasiednieWolnePole();
 	if ( pozycjaDziecka != nullptr)
 	{
-		this->zasiej(*pozycjaDziecka);
+		if ( pozycjaDziecka->czyPrawidlowa() )
+		{
+			this->zasiej(*pozycjaDziecka);
+		}
 	}
 	delete pozycjaDziecka;
 }
@@ -37,7 +40,7 @@ void Roslina::akcja()
 {
 	if ( this->losujCzyRozmnozenie() )
 	{
-		this->rozmnozSie(this);
+		this->rozmnozSie(nullptr);
 	}
 }
 
@@ -56,6 +59,7 @@ void Roslina::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();
 	string komunikat = napastnik->getGatunekOrganizmu() + " zjadl " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
-	//TODO execute move on winner
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	napastnik->wykonajRuch(pozycjaObroncy);
 	this->gin();
 }
