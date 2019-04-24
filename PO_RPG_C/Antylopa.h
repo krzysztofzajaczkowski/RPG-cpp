@@ -11,6 +11,7 @@ public:
 	Antylopa(Swiat* swiat, Pozycja pozycja);
 	void akcja() override;
 	void reagujNaKolizje(Organizm* napastnik) override;
+	int czyUcieczka();
 	void ucieczka(Pozycja pozycjaUcieczki, Organizm* napastnik);
 	void rozmnozSie(Organizm* partner);
 };

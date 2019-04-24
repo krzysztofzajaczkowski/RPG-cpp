@@ -13,29 +13,34 @@ BarszczSosnowskiego::BarszczSosnowskiego(Swiat* swiat, Pozycja pozycja): Roslina
 	this->setSila(10);
 }
 
-void BarszczSosnowskiego::zasiej(Pozycja pozycja)
+void BarszczSosnowskiego::zasiej(Pozycja pozycjaDziecka)
 {
-	BarszczSosnowskiego* noweJagody = new BarszczSosnowskiego(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(noweJagody);
+	string komunikat = "Barszcz Sosnowskiego rosnie na (" + to_string(pozycjaDziecka.x) + ", " + to_string(pozycjaDziecka.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	BarszczSosnowskiego* nowyBarszcz = new BarszczSosnowskiego(this->swiat, pozycjaDziecka);
+	this->getSwiat()->dodajOrganizmDoSwiata(nowyBarszcz);
 }
 
 
 void BarszczSosnowskiego::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();
-	string komunikat = napastnik->getGatunekOrganizmu() + " zjadl " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ") i zatruwa sie smiertelnie";
+	string komunikat = napastnik->getGatunekOrganizmu() + " zjada " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ") i zatruwa sie smiertelnie";
 	napastnik->gin();
 }
 
 void BarszczSosnowskiego::zabijJesliZwierze(Pozycja pozycja)
 {
 	Organizm* ofiara = this->getOrganizmNaPlanszy(pozycja);
-	if ( ofiara->getTypOrganizmu() == "Zwierze" )
+	if ( ofiara != nullptr )
 	{
-		Pozycja pozycjaOfiary = *ofiara->getPozycja();
-		string komunikat = this->getGatunekOrganizmu() + " zabija " + ofiara->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaOfiary.x) + "," + to_string(pozycjaOfiary.y) + ")";
-		ofiara->gin();
-		this->dodajKomunikatWRejestrzeSwiata(komunikat);
+		if ( ofiara->getTypOrganizmu() == "Zwierze" )
+		{
+			Pozycja pozycjaOfiary = *ofiara->getPozycja();
+			string komunikat = this->getGatunekOrganizmu() + " zabija " + ofiara->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaOfiary.x) + "," + to_string(pozycjaOfiary.y) + ")";
+			ofiara->gin();
+			this->dodajKomunikatWRejestrzeSwiata(komunikat);
+		}
 	}
 }
 
@@ -56,7 +61,7 @@ void BarszczSosnowskiego::zabijSasiadujace()
 
 void BarszczSosnowskiego::akcja()
 {
-	this->zabijSasiadujace();
+	//this->zabijSasiadujace();
 	Roslina::akcja();
 }
 

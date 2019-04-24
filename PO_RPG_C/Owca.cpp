@@ -18,10 +18,12 @@ void Owca::rozmnozSie(Organizm* partner)
 	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
 	if ( pozycjaDziecka == nullptr )
 	{
-		Pozycja* pozycjaDziecka = partner->znajdzSasiednieWolnePole();
+		pozycjaDziecka = partner->znajdzSasiednieWolnePole();
 	}
 	if ( pozycjaDziecka != nullptr )
 	{
+		string komunikat = "Owca rodzi sie na (" + to_string(pozycjaDziecka->x) + ", " + to_string(pozycjaDziecka->y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
 		Organizm* dziecko = new Owca(swiat, *pozycjaDziecka);
 		this->urodzDziecko(dziecko);
 	}

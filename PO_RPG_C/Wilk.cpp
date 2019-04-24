@@ -22,6 +22,8 @@ void Wilk::rozmnozSie(Organizm* partner)
 	}
 	if ( pozycjaDziecka != nullptr )
 	{
+		string komunikat = "Wilk rodzi sie na (" + to_string(pozycjaDziecka->x) + ", " + to_string(pozycjaDziecka->y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
 		Organizm* dziecko = new Wilk(swiat, *pozycjaDziecka);
 		this->urodzDziecko(dziecko);
 	}

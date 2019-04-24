@@ -11,10 +11,12 @@ Mlecz::Mlecz(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycja)
 	this->setZnak('M');
 }
 
-void Mlecz::zasiej(Pozycja pozycja)
+void Mlecz::zasiej(Pozycja pozycjaDziecka)
 {
-	Mlecz* nowyMlecz = new Mlecz(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(nowyMlecz);
+	string komunikat = "Mlecz rosnie na (" + to_string(pozycjaDziecka.x) + ", " + to_string(pozycjaDziecka.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	Mlecz* nowyMlecz = new Mlecz(this->swiat, pozycjaDziecka);
+	this->getSwiat()->dodajOrganizmDoSwiata(nowyMlecz);
 }
 
 void Mlecz::akcja()

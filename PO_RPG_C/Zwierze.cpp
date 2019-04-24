@@ -6,7 +6,15 @@
 #include "Swiat.h"
 
 
-Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozycja), krok(krok)
+Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja, int krok): Organizm(swiat, pozycja)
+{
+	this->setKrok(krok);
+	id = this->liczbaStworzonychOrganizmow++;
+	this->setTypOrganizmu("Zwierze");
+	this->getSwiat()->dodajOrganizmNaPlansze(this);
+}
+
+Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja): Organizm(swiat, pozycja)
 {
 	id = this->liczbaStworzonychOrganizmow++;
 	this->setTypOrganizmu("Zwierze");
@@ -27,15 +35,23 @@ void Zwierze::reagujNaKolizje(Organizm* napastnik)
 {
 	Pozycja pozycjaObroncy = *this->getPozycja();
 	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
+	string komunikat;
 	if ( napastnik->getSila() >= this->getSila())
 	{
-		string komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
-		//TODO execute move on winner
+		komunikat = napastnik->getGatunekOrganizmu() + " wygral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
+		napastnik->wykonajRuch(pozycjaObroncy);
 		this->gin();
 	}
-	string komunikat = this->getGatunekOrganizmu() + " wygral z " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
-	napastnik->gin();
-	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	else
+	{
+		komunikat = napastnik->getGatunekOrganizmu() + " przegral z " + this->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaObroncy.x) + "," + to_string(pozycjaObroncy.y) + ")";
+		this->dodajKomunikatWRejestrzeSwiata(komunikat);
+		napastnik->gin();
+		this->wykonajRuch(pozycjaNapastnika);
+		
+	}
+	
 }
 
 void Zwierze::akcja()
@@ -48,7 +64,10 @@ void Zwierze::akcja()
 		{
 			this->kolizja(nowaPozycja);
 		}
-		this->wykonajRuch(nowaPozycja);
+		else
+		{
+			this->wykonajRuch(nowaPozycja);
+		}
 	}
 }
 
@@ -57,7 +76,6 @@ void Zwierze::kolizja(Pozycja docelowaPozycja)
 	Organizm* organizmNaDocelowejPozycji = this->getOrganizmNaPlanszy(docelowaPozycja);
 	if ( organizmNaDocelowejPozycji->getGatunekOrganizmu() == this->getGatunekOrganizmu() )
 	{
-		//TODO animal reproducing
 		this->rozmnozSie(organizmNaDocelowejPozycji);
 	}
 	else
