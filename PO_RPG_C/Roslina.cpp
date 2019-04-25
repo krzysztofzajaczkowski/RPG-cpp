@@ -44,11 +44,6 @@ void Roslina::akcja()
 	}
 }
 
-Organizm* Roslina::getOrganizmNaPlanszy(Pozycja pozycja)
-{
-	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
-}
-
 void Roslina::kolizja(Pozycja docelowaPozycja)
 {
 	Organizm* napastnik = this->getOrganizmNaPlanszy(docelowaPozycja);

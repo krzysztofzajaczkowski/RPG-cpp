@@ -12,5 +12,4 @@ public:
 	void rozmnozSie(Organizm* partner) override;
 	bool losujCzyRozmnozenie();
 	virtual void zasiej(Pozycja pozycjaDziecka)=0;
-	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
 };

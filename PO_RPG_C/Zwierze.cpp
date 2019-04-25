@@ -21,11 +21,6 @@ Zwierze::Zwierze(Swiat* swiat, Pozycja pozycja): Organizm(swiat, pozycja)
 	this->getSwiat()->dodajOrganizmNaPlansze(this);
 }
 
-Organizm* Zwierze::getOrganizmNaPlanszy(Pozycja pozycja)
-{
-	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
-}
-
 void Zwierze::urodzDziecko(Organizm* dziecko)
 {
 	this->getSwiat()->dodajOrganizmDoSwiata(dziecko);

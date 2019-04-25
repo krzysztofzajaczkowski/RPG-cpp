@@ -29,6 +29,7 @@ class Organizm
 private:
 	string typOrganizmu;
 	string gatunekOrganizmu;
+	int cooldownMocySpecjalnej = -1;
 protected:
 	int sila;
 	int inicjatywa;
@@ -51,6 +52,8 @@ public:
 	void gin();
 	void usunOrganizmZPlanszy();
 	void setZnak(char znak);
+	void setCooldown(int cooldown);
+	int getCooldown();
 	char getZnak();
 	virtual int losujKierunek();
 	int getRozmiarSwiataX();
@@ -82,5 +85,6 @@ public:
 	void setKrok(int krok);
 	virtual void rozmnozSie(Organizm* partner) = 0;
 	int getId();
+	Organizm* getOrganizmNaPlanszy(Pozycja pozycja);
 };
 #endif

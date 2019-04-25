@@ -38,16 +38,9 @@ void gotoxy(int x,int y)
 
 int main()
 {
-    Swiat* swiat = new Swiat;
-    system("cls");
-	swiat->rysujSwiat();
 	srand(time(NULL));
-	Pozycja pozycja(0,0);
-	while(true)
-	{
-		_getch();
-		swiat->wykonajRunde();
-	}
+    Swiat* swiat = new Swiat;
+	swiat->menu();
 
 
     

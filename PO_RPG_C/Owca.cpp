@@ -13,6 +13,14 @@ Owca::Owca(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 	this->setInicjatywa(4);
 }
 
+Owca::Owca(Swiat* swiat, Pozycja pozycja, int sila): Zwierze(swiat, pozycja, 1)
+{
+	this->setGatunekOrganizmu("Owca");
+	this->setZnak('O');
+	this->setSila(sila);
+	this->setInicjatywa(4);
+}
+
 void Owca::rozmnozSie(Organizm* partner)
 {
 	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();
