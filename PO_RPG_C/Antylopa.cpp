@@ -13,6 +13,14 @@ Antylopa::Antylopa(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 2)
 	this->setInicjatywa(4);
 }
 
+Antylopa::Antylopa(Swiat* swiat, Pozycja pozycja, int sila): Zwierze(swiat, pozycja, 2)
+{
+	this->setGatunekOrganizmu("Antylopa");
+	this->setZnak('A');
+	this->setSila(sila);
+	this->setInicjatywa(4);
+}
+
 void Antylopa::akcja()
 {
 	int kierunek = this->losujKierunek();
@@ -36,8 +44,37 @@ void Antylopa::akcja()
 		}
 		else
 		{
-			Pozycja staraPozycja = *this->getPozycja();
 			this->wykonajRuch(nowaPozycja);
+		}
+	}
+}
+
+void Antylopa::kolizja(Pozycja docelowaPozycja)
+{
+	Organizm* organizmNaDocelowejPozycji = this->getOrganizmNaPlanszy(docelowaPozycja);
+	if ( organizmNaDocelowejPozycji->getGatunekOrganizmu() == this->getGatunekOrganizmu() )
+	{
+		this->rozmnozSie(organizmNaDocelowejPozycji);
+	}
+	else
+	{
+		bool czyUcieczkaMozliwa = false;
+		if ( this->czyUcieczka() )
+		{
+			Pozycja* pozycjaUcieczki = this->znajdzSasiednieWolnePole();
+			if ( pozycjaUcieczki != nullptr)
+			{
+				if ( pozycjaUcieczki != nullptr )
+				{
+					czyUcieczkaMozliwa = true;
+					this->ucieczka(*pozycjaUcieczki, organizmNaDocelowejPozycji);
+				}
+			}
+			delete pozycjaUcieczki;
+		}
+		if ( !czyUcieczkaMozliwa )
+		{
+			organizmNaDocelowejPozycji->reagujNaKolizje(this);
 		}
 	}
 }
@@ -56,8 +93,8 @@ void Antylopa::reagujNaKolizje(Organizm* napastnik)
 			Pozycja pozycjaObroncy = *this->getPozycja();
 			napastnik->wykonajRuch(pozycjaObroncy);
 			this->ucieczka(*pozycjaUcieczki, napastnik);
-			delete pozycjaUcieczki;
 		}
+		delete pozycjaUcieczki;
 	}
 	if ( !czyUcieczkaUdana )
 	{

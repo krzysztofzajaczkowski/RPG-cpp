@@ -26,12 +26,26 @@ void Guarana::zwiekszSileNapastnika(Organizm* napastnik)
 }
 
 
-void Guarana::kolizja(Pozycja docelowaPozycja)
+/*
+ * void Guarana::kolizja(Pozycja docelowaPozycja)
 {
 	Organizm* napastnik = this->getOrganizmNaPlanszy(docelowaPozycja);
 	this->zwiekszSileNapastnika(napastnik);
+	string komunikat = "Guarana zwiekszyla sile organizmu!";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
 	this->reagujNaKolizje(napastnik);
 }
+ */
+
+void Guarana::reagujNaKolizje(Organizm* napastnik)
+{
+	Pozycja pozycjaNapastnika = *napastnik->getPozycja();
+	this->zwiekszSileNapastnika(napastnik);
+	string komunikat = "Guarana zwiekszyla sile " + napastnik->getGatunekOrganizmu() + " na pozycji (" + to_string(pozycjaNapastnika.x) + "," + to_string(pozycjaNapastnika.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	this->gin();
+}
+
 
 
 

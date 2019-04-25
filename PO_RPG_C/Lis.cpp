@@ -13,6 +13,14 @@ Lis::Lis(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 	this->setInicjatywa(7);
 }
 
+Lis::Lis(Swiat* swiat, Pozycja pozycja, int sila): Zwierze(swiat, pozycja, 1)
+{
+	this->setGatunekOrganizmu("Lis");
+	this->setZnak('L');
+	this->setSila(sila);
+	this->setInicjatywa(7);
+}
+
 
 int Lis::czyBezpieczne(Pozycja pozycja)
 {

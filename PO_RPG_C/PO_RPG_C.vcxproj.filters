@@ -60,6 +60,9 @@
     <ClCompile Include="Antylopa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Czlowiek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Swiat.h">
@@ -102,6 +105,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Antylopa.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Czlowiek.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

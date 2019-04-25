@@ -10,6 +10,6 @@ class Guarana: public Roslina{
 public:
 	Guarana(Swiat* swiat, Pozycja pozycja);
 	void zasiej(Pozycja pozycjaDziecka) override;
-	void kolizja(Pozycja docelowaPozycja) override;
+	void reagujNaKolizje(Organizm* napastnik) override;
 	void zwiekszSileNapastnika(Organizm* napastnik);
 };

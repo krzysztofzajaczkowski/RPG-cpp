@@ -13,6 +13,14 @@ Wilk::Wilk(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 	this->setInicjatywa(5);
 }
 
+Wilk::Wilk(Swiat* swiat, Pozycja pozycja, int sila): Zwierze(swiat, pozycja, 1)
+{
+	this->setGatunekOrganizmu("Wilk");
+	this->setZnak('W');
+	this->setSila(sila);
+	this->setInicjatywa(5);
+}
+
 void Wilk::rozmnozSie(Organizm* partner)
 {
 	Pozycja* pozycjaDziecka = this->znajdzSasiednieWolnePole();

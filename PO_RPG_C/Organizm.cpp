@@ -69,6 +69,11 @@ int Organizm::getInicjatywa()
 	return this->inicjatywa;
 }
 
+Organizm* Organizm::getOrganizmNaPlanszy(Pozycja pozycja)
+{
+	return this->getSwiat()->getOrganizmNaPlanszy(pozycja);
+}
+
 void Organizm::setElementListyInicjatywy(int numerElementu)
 {
 	this->elementListyInicjatywy = numerElementu;
@@ -84,6 +89,16 @@ void Organizm::setZnak(char znak)
 	this->znak = znak;
 }
 
+void Organizm::setCooldown(int cooldown)
+{
+	this->cooldownMocySpecjalnej = cooldown;
+}
+
+int Organizm::getCooldown()
+{
+	return this->cooldownMocySpecjalnej;
+}
+
 char Organizm::getZnak()
 {
 	return this->znak;
@@ -91,7 +106,11 @@ char Organizm::getZnak()
 
 void Organizm::gin()
 {
+	//TODO delete debug comments
+	//string komunikat = this->getGatunekOrganizmu() + " zostaje ustawiony na smierc na pozycji (" + to_string(this->pozycja->x) + "," + to_string(this->pozycja->y) + ")";
+	//this->dodajKomunikatWRejestrzeSwiata(komunikat);
 	this->setDoZabicia();
+	this->usunOrganizmZPlanszy();
 }
 
 string Organizm::getGatunekOrganizmu()
@@ -222,7 +241,7 @@ Pozycja* Organizm::znajdzSasiednieWolnePole()
 
 void Organizm::zwiekszSile(int bonus)
 {
-	this->sila += bonus;
+	this->sila = this->sila + bonus;
 }
 
 void Organizm::setKrok(int krok)

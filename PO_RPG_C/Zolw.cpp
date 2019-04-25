@@ -13,6 +13,14 @@ Zolw::Zolw(Swiat* swiat, Pozycja pozycja): Zwierze(swiat, pozycja, 1)
 	this->setInicjatywa(1);
 }
 
+Zolw::Zolw(Swiat* swiat, Pozycja pozycja, int sila): Zwierze(swiat, pozycja, 1)
+{
+	this->setGatunekOrganizmu("Zolw");
+	this->setZnak('Z');
+	this->setSila(sila);
+	this->setInicjatywa(1);
+}
+
 void Zolw::akcja()
 {
 	int szansaNaRuch = rand()%100 + 1;
