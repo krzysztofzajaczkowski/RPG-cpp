@@ -6,10 +6,10 @@
 #include "Swiat.h"
 #include <string>
 
-class Guarana: protected Roslina{
+class Guarana: public Roslina{
 public:
 	Guarana(Swiat* swiat, Pozycja pozycja);
-	void zasiej(Pozycja pozycja) override;
-	void kolizja(Pozycja docelowaPozycja) override;
+	void zasiej(Pozycja pozycjaDziecka) override;
+	void reagujNaKolizje(Organizm* napastnik) override;
 	void zwiekszSileNapastnika(Organizm* napastnik);
 };

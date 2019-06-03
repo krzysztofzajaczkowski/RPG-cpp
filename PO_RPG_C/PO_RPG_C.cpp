@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <conio.h>
+#include <list>
 #include <typeinfo>
 #include <windows.h>
 #include "Swiat.h"
@@ -13,6 +14,13 @@
 #include "Guarana.h"
 #include "Mlecz.h"
 #include "WilczeJagody.h"
+#include "Wilk.h"
+#include "Antylopa.h"
+#include "Lis.h"
+#include <ctime>
+#include "BarszczSosnowskiego.h"
+#include "Owca.h"
+#include "Zolw.h"
 
 using namespace std;
 
@@ -30,46 +38,10 @@ void gotoxy(int x,int y)
 
 int main()
 {
+	srand(time(NULL));
     Swiat* swiat = new Swiat;
-    system("cls");
-    swiat->rysujPlansze();
+	swiat->menu();
 
-    
-    Pozycja* pozycja = new Pozycja(1,1);
-    Trawa trawa(swiat, *pozycja);
-    pozycja->x = pozycja->y = 2;
-    Guarana guarana(swiat, *pozycja);
-    pozycja->x = pozycja->y = 3;
-    Mlecz mlecz(swiat, *pozycja);
-    pozycja->x = pozycja->y = 4;
-    WilczeJagody wilczeJagody(swiat, *pozycja);
-    swiat->rysujSwiat();
-
-    /*
-     *system("cls");
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #1");
-    cout << endl;
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #2");
-    cout << endl;
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #3");
-    cout << endl;
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #4");
-    cout << endl;
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #5");
-    cout << endl;
-    swiat.rysujRejestr();
-    swiat.dodajKomunikatWRejestrze("Komunikat #6");
-    cout << endl;
-    swiat.rysujRejestr();
-
-     *
-     */
-    
 
     
 }

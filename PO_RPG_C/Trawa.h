@@ -6,8 +6,8 @@
 #include "Swiat.h"
 #include <string>
 
-class Trawa: protected Roslina{
+class Trawa: public Roslina{
 public:
 	Trawa(Swiat* swiat, Pozycja pozycja);
-	void zasiej(Pozycja pozycja) override;
+	void zasiej(Pozycja pozycjaDziecka) override;
 };

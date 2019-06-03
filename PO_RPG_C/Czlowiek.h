@@ -2,14 +2,15 @@
 #include <iostream>
 #include <cstdlib>
 #include "Organizm.h"
+#include "Zwierze.h"
+#include "Swiat.h"
+#include <string>
 
-class Roslina: public Organizm{
+class Czlowiek: public Zwierze{
 public:
-	Roslina(Swiat* swiat, Pozycja pozycja);
+	Czlowiek(Swiat* swiat, Pozycja pozycja);
+	Czlowiek(Swiat* swiat, Pozycja pozycja, int sila);
 	void akcja() override;
 	void kolizja(Pozycja docelowaPozycja) override;
 	void reagujNaKolizje(Organizm* napastnik) override;
-	void rozmnozSie(Organizm* partner) override;
-	bool losujCzyRozmnozenie();
-	virtual void zasiej(Pozycja pozycjaDziecka)=0;
 };

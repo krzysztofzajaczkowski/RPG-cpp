@@ -6,9 +6,9 @@
 #include "Swiat.h"
 #include <string>
 
-class WilczeJagody: protected Roslina{
+class WilczeJagody: public Roslina{
 public:
 	WilczeJagody(Swiat* swiat, Pozycja pozycja);
 	void reagujNaKolizje(Organizm* napastnik) override;
-	void zasiej(Pozycja pozycja) override;
+	void zasiej(Pozycja pozycjaDziecka) override;
 };

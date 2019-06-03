@@ -12,10 +12,10 @@ Trawa::Trawa(Swiat* swiat, Pozycja pozycja): Roslina(swiat, pozycja)
 	this->setZnak('T');
 }
 
-void Trawa::zasiej(Pozycja pozycja)
+void Trawa::zasiej(Pozycja pozycjaDziecka)
 {
-	Trawa* nowaTrawa = new Trawa(this->swiat, pozycja);
-	this->getSwiat()->dodajOrganizmNaPlansze(nowaTrawa);
+	string komunikat = "Trawa rosnie na (" + to_string(pozycjaDziecka.x) + ", " + to_string(pozycjaDziecka.y) + ")";
+	this->dodajKomunikatWRejestrzeSwiata(komunikat);
+	Trawa* nowaTrawa = new Trawa(this->swiat, pozycjaDziecka);
+	this->getSwiat()->dodajOrganizmDoSwiata(nowaTrawa);
 }
-
-
